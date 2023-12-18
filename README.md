@@ -29,5 +29,10 @@ Commerçant | Login | Mot de Passe
 -----------|-------|-------------
 TotalEnergies | `total` | `total`
 
+## Equipe
+
 [@Ahmed-Sarboudine](https://github.com/Ahmed-Sarboudine)
+
+
 [@dmenoret](https://github.com/dmenoret)
+
