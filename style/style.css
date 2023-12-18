@@ -1,0 +1,1261 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Poppins:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+
+/* Réinitialise les styles par défaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: auto;
+    background-image: url("../img/background.jpg");
+    height: auto;
+}
+
+/* Active le défilement fluide */
+html {
+    scroll-behavior: smooth;
+}
+
+
+/*======================================================================*/
+/* Styles de la barre de navigation */
+nav {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 0 5%;
+    height: 90px;
+    background-color: #313131;
+}
+
+/* Styles pour le logo dans la barre de navigation */
+nav .logo {
+    float: left;
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    color: #fff;
+    font-family: 'Bungee Inline', cursive;
+    font-weight: bold;
+}
+
+/* Styles pour les liens dans la barre de navigation */
+nav .links {
+    float: right;
+    padding: 0;
+    margin: 0;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav .links li {
+    list-style: none;
+    position: relative;
+
+}
+
+nav .links a {
+    display: block;
+    padding: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+
+}
+
+nav .links li::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+nav .links li:hover::before,
+nav .links li.active::before {
+    transform: scaleX(1);
+}
+
+/* Styles pour l'icône de menu hamburger */
+#nav-toggle {
+    position: absolute;
+    top: -100px;
+}
+
+nav .icon-burger {
+    display: none;
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+nav .icon-burger .line {
+    width: 30px;
+    height: 5px;
+    background-color: #fff;
+    margin: 5px;
+    border-radius: 3px;
+    transition: all .3s ease-in-out;
+}
+
+/*======================================================================*/
+/*=======================page login=====================================*/
+
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 430px;
+    width: 100%;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container .form {
+    padding: 2rem;
+}
+
+.form header {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.form input {
+    height: 60px;
+    width: 100%;
+    padding: 0 15px;
+    font-size: 17px;
+    margin-bottom: 1.3rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.form input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.show-password {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    color: #009579;
+    font-size: smaller;
+    position: relative;
+}
+
+.show-password label {
+    position: absolute;
+    bottom: 10%;
+}
+
+#show-password {
+    display: none;
+}
+
+.form input.button {
+    color: #fff;
+    background: #009579;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-top: 1.7rem;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.form input.button:hover {
+    background: #006653;
+}
+
+.form-details {
+    font-style: italic;
+}
+
+/*======================================================================*/
+/*=======================page trésorerie================================*/
+
+
+.recherche {
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 3%;
+    margin: 10%;
+}
+
+.recherche h3 {
+    border-bottom: 1px solid black;
+    font-style: bold;
+    font-size: 2em;
+}
+
+.recherche form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    margin: 2%;
+    width: 20%;
+    background-color: #b6b6b6;
+    border-radius: 6px;
+}
+
+.inputs input {
+    width: 100% !important;
+    height: 30px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+/* Adapter le code CSS juste au-dessus (.inputs input) pour les select, option */
+.inputs select {
+    width: 100% !important;
+    height: 30px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+/* Les options du select */
+.inputs option {
+    width: 100% !important;
+    height: 30px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.inputs label {
+    margin-right: 5px;
+    display: block;
+}
+
+.recherche form button {
+    color: #fff;
+    background: #009579;
+    padding: 1%;
+    margin: 2%;
+    width: 15%;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.4s;
+    border-radius: 6px;
+}
+
+.recherche form button:hover {
+    background: #006653;
+}
+
+.resultat h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.recherche p {
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+/*========================page trésorerire=====================*/
+.resultat {
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 3%;
+    margin: 10%;
+}
+
+.resultat h2 {
+    border-bottom: 1px solid black;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+h2.title-resultat {
+    border-bottom: 1px solid black;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+
+}
+
+td,
+th {
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+
+tr:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+tr:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+.arrow {
+    margin-right: 10px;
+    /* Augmentez la valeur de margin-right selon l'espace souhaité */
+}
+
+.total {
+    float: right;
+}
+
+.on-pagination {
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.pagination .element {
+    color: black;
+    float: left;
+    text-decoration: none;
+    transition: background-color .3s;
+    margin-right: 10px;
+    /* Ajoutez de l'espace entre les éléments .element */
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.pagination .pages {
+    float: right;
+}
+
+.pagination .element input[type=number] {
+    width: 3rem;
+    text-align: center;
+}
+
+.pagination button.element {
+    color: black;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+}
+
+/* Styles pour les liens avec flèches SVG */
+.arrow img {
+    width: 20px;
+    /* Définissez la largeur souhaitée pour les flèches */
+    height: 20px;
+    /* Définissez la hauteur souhaitée pour les flèches */
+    vertical-align: middle;
+    /* Centrez verticalement les flèches */
+}
+
+.left-arrow {
+    margin-right: 5px;
+    /* Ajoutez un espacement entre la flèche et le texte si nécessaire */
+}
+
+.right-arrow {
+    margin-left: 5px;
+    /* Ajoutez un espacement entre le texte et la flèche si nécessaire */
+}
+
+.left-arrow-icon,
+.right-arrow-icon {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 100% 100%;
+}
+
+.left-arrow-icon {
+    background-image: url("../img/arrow-left.svg");
+}
+
+.right-arrow-icon {
+    background-image: url("../img/arrow-right.svg");
+}
+
+details.resultat {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 0.5em 0.5em 0;
+}
+
+.resultat summary {
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+}
+
+details.resultat[open] {
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+details.resultat[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
+}
+
+/*tableau-remise*/
+.tableau-remise {
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 3%;
+    margin: 10%;
+    display: block;
+}
+
+.mesinformations {
+    background-color: #fff;
+    background: #fff;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 3%;
+    margin: 10%;
+    color: black;
+
+}
+
+.mesinformations h2 {
+    border-bottom: 1px solid black;
+    font-style: bold;
+    font-size: 2em;
+}
+
+.profil {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20% 0 20%
+}
+
+.profil-img {
+    width: 350px;
+    border-radius: 100%;
+}
+
+.profil-img img {
+    border-radius: 100%;
+    width: 350px;
+}
+
+.mini-info {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    width: fit-content;
+}
+
+.mini-info span.info {
+    margin-bottom: 10px;
+    font-weight: bolder;
+    white-space: nowrap;
+}
+
+.mini-info span.perso-data {
+    margin-bottom: 10px;
+    color: rgb(128, 128, 128);
+    white-space: nowrap;
+    /* Éviter le débordement */
+}
+
+.mini-info span.perso-data:hover {
+    color: black;
+}
+
+.mesinformations button {
+    white-space: nowrap;
+    background-color: red;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    margin-left: 90%;
+}
+
+.mesinformations button:hover {
+    background-color: #ff1f4d;
+    transition: all 1s ease-out;
+    transform: scale(1.1, 1.1);
+    cursor: pointer;
+}
+
+/*================Page Marchand po=================*/
+
+.po-confirm {
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 3%;
+    margin: 10%;
+}
+
+
+.po-confirm h2 {
+    border-bottom: 1px solid black;
+    font-size: 2em;
+}
+
+.po-confirm .creatsuppr {
+    display: flex;
+    flex-direction: row;
+    margin: 5%;
+    align-items: center;
+    border-radius: 7px;
+    padding: 1em;
+}
+
+.creatsuppr div {
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+    width: 40%;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 7px;
+    padding: 1em;
+    justify-content: space-around;
+    position: relative;
+}
+
+.creatsuppr div .compte {
+    display: flex;
+    flex-direction: row;
+    background: #313131;
+    color: white;
+    margin: 5%;
+    padding: 5%;
+    border-radius: 5px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.compte button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    background: none;
+}
+
+.creatsuppr div .compte .choix {
+    display: flex;
+    flex-direction: row;
+}
+
+.creatsuppr div .compte .choix button img {
+    display: flex;
+    flex-direction: row;
+    transform: scale(0.7, 0.7);
+}
+
+.creatsuppr div .compte .choix button img:hover {
+    display: flex;
+    transition: all 1s ease-out;
+    transform: scale(1, 1);
+}
+
+
+
+@media screen and (max-width: 1150px) {
+    nav .logo {
+        float: none;
+        width: auto;
+        justify-content: center;
+    }
+
+    nav .links {
+        float: none;
+        position: fixed;
+        z-index: 9;
+        left: 0;
+        right: 0;
+        top: 100px;
+        bottom: 100%;
+        width: auto;
+        height: auto;
+        flex-direction: column;
+        justify-content: space-evenly;
+        background-color: rgba(0, 0, 0, .8);
+        overflow: hidden;
+        box-sizing: border-box;
+        transition: all .5s ease-in-out;
+    }
+
+    nav .links a {
+        font-size: 20px;
+    }
+
+    nav :checked~.links {
+        bottom: 0;
+    }
+
+    nav .icon-burger {
+        display: block;
+    }
+
+    nav :checked~.icon-burger .line:nth-child(1) {
+        transform: translateY(10px) rotate(225deg);
+    }
+
+    nav :checked~.icon-burger .line:nth-child(3) {
+        transform: translateY(-10px) rotate(-225deg);
+    }
+
+    nav :checked~.icon-burger .line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .recherche {
+        margin-top: 40%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .recherche form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 5%;
+    }
+
+    .recherche form button {
+        width: 100%;
+    }
+
+    .profil {
+        flex-direction: column;
+    }
+
+    .profil-img {
+        width: 250px;
+    }
+
+    .profil-img img {
+        width: 250px;
+    }
+
+    .mesinformations button {
+        margin-left: 0;
+        align-content: center;
+    }
+}
+
+.modal-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease-in;
+    pointer-events: none;
+}
+
+.modal-container.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.modal {
+    /* Styles pour la fenêtre modale (inchangés) */
+    position: relative;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    overflow-y: auto;
+    max-height: 80%;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.4s ease-in, transform 0.4s ease-in;
+}
+
+.modal-btn {
+    /* Styles pour le bouton d'ouverture (inchangés) */
+    font-size: 1rem;
+    background-color: #fff;
+    color: green;
+    border: 1px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    /* Utilisation de flexbox pour le centrage */
+    align-items: center;
+    /* Centrer verticalement */
+    justify-content: center;
+    /* Centrer horizontalement */
+    padding: 0 1em;
+    height: 1.3rem;
+}
+
+.modal-btn:hover {
+    background-color: #eee;
+}
+
+.modal-container.active .modal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.close-modal {
+    /* Styles pour le bouton de fermeture (inchangés) */
+    font-size: 1rem;
+    float: right;
+    position: relative;
+    background-color: #ff365e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1;
+    padding: 0.5rem;
+}
+
+.close-modal:hover {
+    background-color: #ff1f4d;
+}
+
+/* Styles pour le contenu de la fenêtre modale */
+
+/* =======================page admin=============================*/
+/* Saut de ligne, avec un titre de niveau 1 */
+h1.jump {
+    font-size: 2em;
+    margin: 0;
+    /* Supprime la marge par défaut */
+    padding: 2em 0 1em 0;
+    text-align: center;
+    color: #fff;
+    font-style: bold;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 0.5em 0 1.5em 0;
+}
+
+ul.tab {
+    list-style-type: none;
+    overflow: hidden;
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    background: #f5f5f5;
+    width: fit-content;
+    margin: auto;
+}
+
+ul.tab li {
+    float: left;
+}
+
+/* Updated styles for tab links */
+ul.tab li a {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+    position: relative;
+    /* Add this to make ::before pseudo-element position relative to the tab link */
+}
+
+ul.tab li a::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: #000000;
+    transform: scaleX(0);
+    /* Start with no underline */
+    transform-origin: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+ul.tab li a:hover::before,
+ul.tab li a.active::before {
+    transform: scaleX(1);
+    /* Show the underline when hovered or active */
+}
+
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+ul.tab li a:focus,
+.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-width: fit-content;
+    margin: 0 auto;
+}
+
+/* Style du formulaire */
+.create-suppr-bloc {
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+
+.create-suppr-bloc .inputBox {
+    position: relative;
+    margin: 1em 0;
+}
+
+.create-suppr-bloc .inputBox label {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+    color: royalblue;
+    /* Changer la couleur du texte à #444 */
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+}
+
+.create-suppr-bloc .inputBox input {
+    width: 100%;
+    padding: 20px 10px 10px;
+    font-size: 1em;
+    outline: none;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    color: black;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 2;
+}
+
+.create-suppr-bloc .inputBox hr {
+    /* Je voudrais placer la ligne un peu plus bas */
+    position: absolute;
+    left: 0;
+    bottom: -0.01rem;
+    width: 100%;
+    height: 2px;
+    background: #000000;
+    border: none;
+    border-radius: 4px;
+    transition: 0.5s;
+    opacity: 0.5;
+    z-index: 5;
+}
+
+.create-suppr-bloc .inputBox input:valid+label,
+.create-suppr-bloc .inputBox input:focus+label {
+    font-size: 0.8em;
+    transform: translateY(-2.2rem);
+}
+
+.create-suppr-bloc .inputBox input:valid+hr,
+.create-suppr-bloc .inputBox input:focus+hr {
+    height: 2.5rem;
+}
+
+.create-suppr-bloc input[type="submit"] {
+    border: none;
+    outline: none;
+    padding: 9px 25px;
+    background: #000000;
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #fff;
+}
+
+#togglePassword {
+    z-index: 1;
+}
+
+/* Styles pour la liste et les éléments */
+.create-suppr-bloc ul {
+    list-style: none;
+    /* Supprime les puces de liste */
+    padding: 0;
+    /* Supprime la marge intérieure de la liste */
+    margin: 0;
+    /* Supprime la marge extérieure de la liste */
+}
+
+.create-suppr-bloc li {
+    margin: 0.5em 0;
+    /* Marge entre les éléments de la liste */
+    border: 1px solid #CCC;
+    /* Bordure pour les éléments de la liste */
+    background: #f5f5f5;
+    /* Fond des éléments de la liste */
+    border-radius: 1em;
+    /* Coins arrondis pour les éléments de la liste */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* Définir la largeur à 100% pour éviter de changer de taille */
+}
+
+.suppr-client {
+    text-align: left;
+    border-radius: 4px;
+    padding: 0.5em;
+}
+
+.suppr-client summary {
+    text-align: left;
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+}
+
+details.suppr-client[open] {
+    text-align: left;
+    padding: 0.5em;
+}
+
+details.suppr-client[open] summary {
+    text-align: left;
+    margin-bottom: 0.5em;
+}
+
+.btn-suppr {
+    font-size: 1em;
+    margin-top: 5rem;
+    text-decoration: none;
+    background: #dc3545;
+    border: none;
+    outline: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 600;
+    color: whitesmoke;
+    transition: 0.5s;
+}
+
+.btn-suppr:hover {
+    background: #c82333;
+}
+
+.trash {
+    width: 1.5em;
+    height: 1.5em;
+    fill: currentColor;
+    /* Utilisez la couleur du texte actuelle pour remplir le SVG */
+    margin-left: 0.2em;
+    /* Ajoute une petite marge à gauche du SVG */
+    vertical-align: middle;
+    /* Alignez verticalement le SVG au milieu du texte */
+}
+
+.montant-pos {
+    color: black;
+}
+
+.montant-neg {
+    color: red;
+}
+
+.export {
+    margin-bottom: 1em;
+    text-align: right;
+}
+
+.treso-global {
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+.treso-global details.resultat-treso-global {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 0.5em 0.5em 0;
+    margin-bottom: 2em;
+}
+
+.treso-global details.resultat-treso-global summary {
+    width: 100%;
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+}
+
+.treso-global details.resultat-treso-global[open] {
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+.treso-global details.resultat-treso-global[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
+}
+
+#loginForm input {
+    transition: border-color 0.3s ease, width 0.3s ease;
+    /* Ajout de la transition pour les champs input */
+}
+
+#loginForm input:focus {
+    border-color: initial;
+}
+
+#loginForm .input-container {
+    position: relative;
+    width: 100%;
+    /* Adapter la largeur selon les besoins */
+}
+
+#loginForm .eyeIcon {
+    z-index: 1;
+    cursor: pointer;
+    font-size: 1.2rem;
+    position: absolute;
+    top: 50%;
+    right: 1em;
+    /* en em : 1em = 16px */
+    /* Espace pour l'icône à droite du champ de mot de passe */
+    transform: translateY(-100%);
+    user-select: none;
+    /* Empêche la sélection de l'icône */
+    z-index: 1;
+    /* Assure que l'icône reste au-dessus du champ */
+    transition: opacity 0.3s ease;
+}
+
+#loginForm .eyeIcon::before {
+    content: 'visibility';
+    display: block;
+}
+
+#loginForm .eyeIcon.hide-password::before {
+    content: 'visibility_off';
+    z-index: 1;
+}
+
+#loginForm .login input[type="password"] {
+    z-index: 2;
+    /* Prendre en compte l'espace pour l'icône */
+    padding-right: 30px;
+    /* Assure de l'espace pour l'icône */
+}
+
+.login.form .error-block {
+    display: none;
+    /* Cache le bloc d'erreur par défaut */
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+
+div.login.form div.error-block.show-warning {
+    display: block;
+    text-align: center;
+}
+
+.login.form #error-message p {
+    margin: 0;
+}
+
+.sortable {
+    cursor: pointer;
+}
+
+.global-treso-element {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.global-treso-element div.element {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.global-treso-element div.element .tresoglobal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    left: 50%;
+    width: 100%;
+}
+
+.global-treso-element div.element h3 {
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.global-treso-element .element {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.global-treso-element .graph {
+    width: 100%;
+}
+
+.global-treso-element .graph#myChart {
+    width: 100%;
+    height: 100%;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.graph-camenbert {
+    background: white;
+    margin: 10%;
+    padding: 10%;
+    border-radius: 7px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.graph-camenbert h2 {
+    border-bottom: 1px solid black;
+    font-style: bold;
+    font-size: 2em;
+}

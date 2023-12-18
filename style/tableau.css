@@ -1,0 +1,66 @@
+/* Définit les styles pour le tableau pour le document PDF */
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Poppins:wght@300&display=swap');
+
+/* Le style du document PDF */
+body {
+    width: 100%; /* Définit une largeur spécifique pour le corps */
+    height: auto; /* Laisse la hauteur flexible */
+    font-family: Arial, sans-serif; /* Utilisation de polices système */
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif; /* Polices externes pour les en-têtes */
+    font-size: 2rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+p {
+    text-align: right;
+    font-family: 'Poppins', sans-serif; /* Polices externes pour les paragraphes */
+}
+
+/* ========== Tableau ========== */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+}
+
+th,
+td {
+    border-top: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-family: 'Poppins', sans-serif; /* Polices externes pour les cellules */
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+
+th {
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+}
+
+/* Alternance de couleurs pour les lignes */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+/* Arrondir les coins du tableau */
+tr:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+tr:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+/* ========== Fin du tableau ========== */

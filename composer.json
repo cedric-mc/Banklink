@@ -1,0 +1,24 @@
+{
+    "name": "cedri/banklink",
+    "autoload": {
+        "psr-4": {
+            "Cedri\\Banklink\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "cedric-mc",
+            "email": "106695106+cedric-mc@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.8",
+        "mpdf/mpdf": "^8.2",
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "config": {
+        "platform": {
+            "php": "7.0.33"
+        }
+    }
+}
