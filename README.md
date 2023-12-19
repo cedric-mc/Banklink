@@ -35,8 +35,10 @@ Commerçant | Login | Mot de Passe
 -----------|-------|-------------
 TotalEnergies | `total` | `total`
 
-## Equipe
+## Équipe
 
 Scrum Master : [@Ahmed-Sarboudine](https://github.com/Ahmed-Sarboudine)
+
+[@cedric-mc](https://github.com/cedric-mc)
 
 [@dmenoret](https://github.com/dmenoret)
