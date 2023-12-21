@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
     $stmt->execute();
 
     // Rediriger vers la page précédente tout en affichant un message de succès
-//    header("Location: ./?suppression=1");
+    header("Location: ./?etat=1");
 }
 header("Location: ./");
 ?>

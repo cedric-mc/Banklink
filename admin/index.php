@@ -6,9 +6,9 @@ if (empty($_SESSION["idUser"]) || $_SESSION["type"] != "admin") {
     exit();
 }
 // Vérifier si le formulaire a été soumis
-if (isset($_GET["success"]) && $_GET["success"] == 1) {
+if (isset($_GET["etat"]) && $_GET["success"] == 2) {
     echo "<script>alert('Le compte a bien été créé !');</script>";
-} elseif ($_GET["suppression"] == 1) {
+} elseif ($_GET["etat"] == 1) {
     echo "<script>alert('Le compte a bien été supprimé !');</script>";
 }
 ?>
