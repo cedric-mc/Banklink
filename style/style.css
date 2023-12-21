@@ -834,10 +834,10 @@ h1.jump {
     font-size: 2em;
     margin: 0;
     /* Supprime la marge par défaut */
-    padding: 2em 0 1em 0;
+    padding: 3em 0 1em 0;
     text-align: center;
     color: #fff;
-    font-style: bold;
+    font-weight: bold;
 }
 
 h2 {

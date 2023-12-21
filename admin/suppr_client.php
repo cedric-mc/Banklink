@@ -11,9 +11,8 @@ if (isset($_GET['id'])) {
     $stmt->bindParam(':idUser', $idUserToSuppr, PDO::PARAM_INT);
     $stmt->execute();
 
-    // Rediriger vers la page précédente  tout en affichant un message de succès
-    echo "<script>alert('Le compte client a été supprimé avec succès.');</script>";
-    echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>"; // Rediriger vers la page d'accueil
+    // Rediriger vers la page précédente tout en affichant un message de succès
+//    header("Location: ./?suppression=1");
 }
 header("Location: ./");
 ?>
