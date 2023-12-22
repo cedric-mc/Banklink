@@ -11,7 +11,8 @@ $errorMessages = [
     2 => "Identifiant incorrect.",
     3 => "Mot de passe incorrect. Tentative n°1 sur 3.",
     4 => "Mot de passe incorrect. Tentative n°2 sur 3. Attention, il ne vous reste qu'un essai.",
-    5 => "Trop de tentatives. Veuillez réessayer dans "
+    5 => "Trop de tentatives. Veuillez réessayer dans ",
+    6 => "Le compte n'est plus disponible. Veuillez contacter le product-owner."
 ];
 
 if (isset($_SESSION['error'])) {
@@ -19,7 +20,7 @@ if (isset($_SESSION['error'])) {
     if (isset($errorMessages[$errorCode])) {
         $errorMessage = $errorMessages[$errorCode];
     } else {
-        $errorMessage = "Une erreur inconnue est survenue.";
+        $errorMessage = $errorCode;
     }
 } else {
     $errorMessage = "";

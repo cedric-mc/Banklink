@@ -52,7 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     ];
     header("Location: ".$format.".php?export_data=&export_data");
 } else {
-    header("Location: ../");
+    // header("Location: ../");
 }
+echo $_POST['table'];
 exit();
 ?>

@@ -161,7 +161,7 @@ $data = json_encode($data);
                     <option value="xls">Excel</option>
                     <option value="pdf">PDF</option>
                 </select>
-                <button type="submit">Exporter</button>
+                <!-- <button type="submit">Exporter</button> -->
             </form>
         </div>
         <!-- Formulaire d'exportation -->
@@ -350,9 +350,15 @@ $data = json_encode($data);
         });
 
         // Submit le form sans le bouton
-        // document.getElementById('format').addEventListener('change', function() {
-        //     document.getElementById('exportForm').submit();
-        // });
+        document.getElementById('format').addEventListener('change', function () {
+            var selectedFormat = this.value;
+            if (selectedFormat) {
+                // Modify the 'action' attribute of the form to the appropriate file
+                document.getElementById('exportForm').action = '../export/export.php';
+                // Submit the form to redirect to the selected file
+                document.getElementById('exportForm').submit();
+            }
+        });
     </script>
     <script src="../script/tableau.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

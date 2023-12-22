@@ -47,7 +47,7 @@ try {
 
             // Récupération du siren du client
             if ($_SESSION['type'] == 'client') {
-                $req = $cnx->prepare("SELECT siren, raisonSociale, devise, numCarte, reseau FROM CLIENT WHERE idUser = :idUser");
+                $req = $cnx->prepare("SELECT siren, raisonSociale, devise, numCarte, reseau, suppr FROM CLIENT WHERE idUser = :idUser;");
                 $req->bindParam(':idUser', $_SESSION['idUser'], PDO::PARAM_INT);
                 $req->execute();
                 $result = $req->fetch(PDO::FETCH_ASSOC);
@@ -57,6 +57,11 @@ try {
                 $_SESSION['numCarte'] = $result['numCarte'];
                 $_SESSION['reseau'] = $result['reseau'];
                 $req->closeCursor();
+                if ($result['suppr'] == 2) {
+                    $_SESSION['error'] = 6;
+                    header('Location: ./');
+                    exit;
+                }
             }
             unset($_SESSION['login_attempts']); // Réinitialisation du nombre d'essais
             header("Location: " . $_SESSION['type'] . "/");
@@ -74,7 +79,7 @@ try {
         }
     } else { // Si le login est incorrect
         $_SESSION['error'] = 2;
-        header('Location: ./');
+        // header('Location: ./');
         exit;
     }
 } catch (PDOException $e) {
