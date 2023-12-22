@@ -350,9 +350,9 @@ $data = json_encode($data);
         });
 
         // Submit le form sans le bouton
-        document.getElementById('format').addEventListener('change', function() {
-            document.getElementById('exportForm').submit();
-        });
+        // document.getElementById('format').addEventListener('change', function() {
+        //     document.getElementById('exportForm').submit();
+        // });
     </script>
     <script src="../script/tableau.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
