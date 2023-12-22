@@ -335,6 +335,7 @@ th {
     font-weight: bold;
     background-color: #333;
     color: #fff;
+    text-align: center;
 }
 
 tr:nth-child(even) {
@@ -352,6 +353,7 @@ th {
     border-left: none;
     border-right: none;
     border-bottom: 1px solid black;
+    text-align: center;
 }
 
 tr:first-child {
