@@ -154,7 +154,7 @@ $data = json_encode($data);
         <!-- Formulaire d'exportation -->
         <div class="export">
             <form action="../export/export.php" method="post" id="exportForm">
-                <input type="hidden" name="table" value="treso">
+                <input type="hidden" name="table" value="treso1">
                 <input type="hidden" name="requete" value="<?php echo $requeteString; ?>">
                 <label for="format"></label>
                 <select name="format" id="format">

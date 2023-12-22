@@ -4,19 +4,26 @@ session_start();
 if (isset($_SESSION['type'])) {
     header("Location: " . $_SESSION['type'] . "/");
 }
-// Si la variable de session lockout_time existe et que le temps de lockout n'est pas dépassé
-if (isset($_SESSION['lockout_time']) && $_SESSION['lockout_time'] > time()) {
-    $_SESSION['error'] = "Trop de tentatives. Veuillez réessayer plus tard. Il vous reste " . ($_SESSION['lockout_time'] - time()) . " secondes.";
-} elseif (isset($_SESSION['lockout_time']) && $_SESSION['lockout_time'] <= time()) { // Si le temps de lockout est dépassé
-    // Réinitialiser lockout_time et le nombre d'essais
-    unset($_SESSION['lockout_time']);
-    $_SESSION['login_attempts'] = 0;
-    $_SESSION['error'] = "";
+
+$errorMessages = [
+    0 => "",
+    1 => "Veuillez saisir un identifiant et un mot de passe.",
+    2 => "Identifiant incorrect.",
+    3 => "Mot de passe incorrect. Tentative n°1 sur 3.",
+    4 => "Mot de passe incorrect. Tentative n°2 sur 3. Attention, il ne vous reste qu'un essai.",
+    5 => "Trop de tentatives. Veuillez réessayer dans "
+];
+
+if (isset($_SESSION['error'])) {
+    $errorCode = $_SESSION['error'];
+    if (isset($errorMessages[$errorCode])) {
+        $errorMessage = $errorMessages[$errorCode];
+    } else {
+        $errorMessage = "Une erreur inconnue est survenue.";
+    }
+} else {
+    $errorMessage = "";
 }
-// Récupération de l'erreur depuis la session
-$error = isset($_SESSION['error']) ? $_SESSION['error'] : "";
-// Suppression de l'erreur de la session pour ne pas l'afficher plusieurs fois
-unset($_SESSION['error']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,7 +57,11 @@ unset($_SESSION['error']);
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
         <script>
+            var errorBlock = $('.error-block');
+            var errorMessage = $('#error-message');
+
             // -- Affichage du mot de passe -- //
             var passwordInput = document.getElementById('password');
             var eyeIcon = document.getElementById('eyeIcon');
@@ -67,19 +78,48 @@ unset($_SESSION['error']);
                 }
             });
 
-            // -- Affichage de l'erreur -- //
-            var error = "<?php echo $error; ?>";
-            var errorBlock = document.querySelector('.error-block');
-            var errorMessage = document.querySelector('#error-message');
-            if (error == "") {
-                // Si le message est vide, on cache le bloc d'erreur
-                errorBlock.style.display = "none";
-                errorBlock.classList.remove('show-warning');
-            } else {
-                // Sinon on affiche le bloc d'erreur avec le message
-                errorBlock.classList.add('show-warning');
-                errorMessage.innerHTML = error;
+            function updateErrorMessage(remainingTime, specificErrorMessage) {
+                if (remainingTime > 0) {
+                    // Affichage du message d'erreur et du temps restant
+                    remainingSeconds = remainingTime % 60;
+                    remainingMinutes = Math.floor(remainingTime / 60);
+                    if (remainingMinutes > 0 && remainingSeconds === 0) {
+                        errorMessage.text(specificErrorMessage + remainingMinutes + " minutes.");
+                    } else if (remainingMinutes > 0) {
+                        errorMessage.text(specificErrorMessage + remainingMinutes + " minutes et " + remainingSeconds + " secondes.");
+                    } else {
+                        errorMessage.text(specificErrorMessage + remainingSeconds + " secondes.");
+                    }
+                    errorBlock.addClass('show-warning').show();
+                } else if (specificErrorMessage !== "") {
+                    if (specificErrorMessage === "Trop de tentatives. Veuillez réessayer dans ") {
+                        errorBlock.hide().removeClass('show-warning');
+                        return;
+                    }
+                    // Affichage du message d'erreur spécifique si disponible
+                    errorMessage.text(specificErrorMessage);
+                    errorBlock.addClass('show-warning').show();
+                } else {
+                    // Si le temps est écoulé, on cache le bloc d'erreur
+                    errorBlock.hide().removeClass('show-warning');
+                }
             }
+
+            function fetchRemainingTime() {
+                $.ajax({
+                    url: 'time_left.php',
+                    success: function(remainingTime) {
+                        // Récupération du message d'erreur spécifique à la situation
+                        var specificErrorMessage = "<?php echo $errorMessage; ?>";
+                        updateErrorMessage(parseInt(remainingTime), specificErrorMessage);
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                fetchRemainingTime(); // Appel initial
+                setInterval(fetchRemainingTime, 1000); // Appel périodique
+            });
         </script>
     </body>
 </html>

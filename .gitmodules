@@ -7,6 +7,3 @@
 [submodule "vendor/mpdf"]
 	path = vendor/mpdf
 	url = https://github.com/mpdf/mpdf.git
-[submodule "vendor/fpdf"]
-	path = vendor/fpdf
-	url = https://github.com/Setasign/FPDF.git

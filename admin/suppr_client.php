@@ -9,8 +9,10 @@ if (!empty($_GET['id'])) {
     $stmt = $cnx->prepare($updateQuery);
     $stmt->bindParam(':idUser', $_GET['id'], PDO::PARAM_INT);
     $stmt->execute();
-    // Rediriger vers la page précédente tout en affichant un message de succès
-    header("Location: index.php?etat=1");
+
+    // Afficher un message de succès
+    echo "<script>window.setTimeout(function() {window.location = './?etat=1';}, 1000);</script>";
+    exit();
 }
 header("Location: ./");
 ?>

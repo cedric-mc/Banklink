@@ -15,13 +15,20 @@ $nomsColonnes = $_SESSION['export_data']['nomsColonnes'];
 $lignes = $_SESSION['export_data']['lignes'];
 $title = $_SESSION['export_data']['title'];
 
-$tmpDir = '../tmp/mpdf';
-if (!is_dir($tmpDir)) { // Créer le répertoire s'il n'existe pas déjà
-    mkdir($tmpDir, 777, true);
+// Définir un répertoire temporaire accessible en écriture
+$tmpDir = 'tmp/';
+
+// Vérifier si le répertoire existe, sinon le créer
+if (!is_dir($tmpDir)) {
+    mkdir($tmpDir, 0777, true);
 }
 
 require_once("../vendor/autoload.php");
-$mpdf = new \Mpdf\Mpdf(['tempDir' => $tmpDir]);
+
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
+
+$mpdf = new Mpdf(['tempDir' => $tmpDir, 'orientation' => 'L']);
 $stylesheet = file_get_contents('../style/tableau.css'); // Path to your CSS file
 $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
 
@@ -52,7 +59,7 @@ $extrac_timecode = "EXTRAIT DU " . date("d/m/Y") . " À " . date("H:i");
 $mpdf->WriteHTML('<p>' . $extrac_timecode . '</p>');
 
 // Output the PDF as download
-$mpdf->Output('export.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+$mpdf->Output('export.pdf', Destination::DOWNLOAD);
 
 unset($_SESSION['export_data']);
 header('Location: export.php');

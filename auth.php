@@ -2,7 +2,7 @@
 session_start();
 $_SESSION['error'] = ""; // Variable contenant l'erreur à afficher
 if (isset($_SESSION['lockout_time']) && $_SESSION['lockout_time'] > time()) { // Si la temps de lockout n'est pas dépassé
-    $_SESSION['error'] = "Trop de tentatives. Veuillez réessayer plus tard. Il vous reste " . ($_SESSION['lockout_time'] - time()) . " secondes.";
+    $_SESSION['error'] = 5;
     header('Location: ./');
     exit;
 } elseif (isset($_SESSION['lockout_time']) && $_SESSION['lockout_time'] <= time()) { // Si le temps de lockout est dépassé
@@ -18,7 +18,7 @@ if (!isset($_SESSION['login_attempts'])) {
 
 // S'il manque un champ dans le formulaire de connexion, on affiche une erreur
 if (empty($_POST['login']) || empty($_POST['password'])) {
-    $_SESSION['error'] = "Veuillez saisir un identifiant et un mot de passe.";
+    $_SESSION['error'] = 1;
     header('Location: ./');
     exit();
 }
@@ -60,16 +60,16 @@ try {
         } else { // Si le mot de passe est incorrect
             $_SESSION['login_attempts']++; // Incrémentation du nombre d'essais
             if ($_SESSION['login_attempts'] < 3) { // Si le nombre d'essais est inférieur à 3
-                $_SESSION['error'] = "Mot de passe incorrect. Tentative " . $_SESSION['login_attempts'] . " sur 3."; // Nouvelle erreur
+                $_SESSION['error'] = 2+$_SESSION['login_attempts'];
             } else { // Si le nombre d'essais est supérieur ou égal à 3
                 $_SESSION['lockout_time'] = time() + (5 * 60); // On définit le temps de lockout à 5 minutes
-                $_SESSION['error'] = "Trop de tentatives. Veuillez réessayer plus tard. Il vous reste " . ($_SESSION['lockout_time'] - time()) . " secondes."; // Nouvelle erreur avec le temps restant
+                $_SESSION['error'] = 5;
             }
             header('Location: ./');
             exit();
         }
     } else { // Si le login est incorrect
-        $_SESSION['error'] = "Identifiant incorrect."; // Nouvelle erreur
+        $_SESSION['error'] = 2;
         header('Location: ./');
         exit;
     }

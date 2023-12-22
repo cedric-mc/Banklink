@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Afficher les messages d'erreur
         echo "<script>alert('Erreur lors de la création du compte client : '" . implode("<br> ", $errorMessages) . ");</script>";
         echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>"; // Rediriger vers la page d'accueil
+        exit();
     } else { // Sinon, insérer les données dans la table CLIENT_TEMP
         // Préparer la requête d'insertion
         $insertQuery = 
