@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($_SESSION['type'] == "client") {
-        $title .= " DE L'ENTREPRISE $_SESSION[raisonSociale] - N° SIREN $_SESSION[siren].";
+        $title .= " DE L'ENTREPRISE \n$_SESSION[raisonSociale] - N° SIREN $_SESSION[siren].";
     } elseif ($_SESSION['type'] == "product-owner") {
         $title .= " DES ENTREPRISES ENREGISTRÉES SUR BANKLINK.";
     }

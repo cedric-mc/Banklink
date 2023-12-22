@@ -152,7 +152,7 @@ $data = json_encode($data);
             <form action="../export/export.php" method="post">
                 <!-- Champs du formulaire -->
                 <input type="hidden" name="table" value="treso">
-                <input type="hidden" name="lignes" value="<?php echo json_encode($lignes); ?>">
+                <input type="hidden" name="lignes" value="<?php echo htmlspecialchars(json_encode($lignes)); ?>">
                 <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
                 <input type="hidden" name="fichier" value="./">
                 <select name="format" id="format">

@@ -14,7 +14,6 @@ $nbLignes = $_SESSION['export_data']['nbLignes'];
 $nomsColonnes = $_SESSION['export_data']['nomsColonnes'];
 $lignes = json_decode($_SESSION['export_data']['lignes']);
 $title = $_SESSION['export_data']['title'];
-var_dump($lignes);
 
 // Définir un répertoire temporaire accessible en écriture
 $tmpDir = 'tmp/';
@@ -26,10 +25,7 @@ if (!is_dir($tmpDir)) {
 
 require_once("../vendor/autoload.php");
 
-use Mpdf\Mpdf;
-use Mpdf\Output\Destination;
-
-$mpdf = new Mpdf(['tempDir' => $tmpDir, 'orientation' => 'L']);
+$mpdf = new Mpdf\Mpdf(['tempDir' => $tmpDir, 'orientation' => 'P']);
 $stylesheet = file_get_contents('../style/tableau.css'); // Path to your CSS file
 $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
 
@@ -44,7 +40,6 @@ foreach ($nomsColonnes as $nomColonne) {
 }
 $html .= '</tr>';
 
-$lignes = (array)$lignes;
 foreach ($lignes as $ligne) {
     $html .= '<tr>';
     foreach ($ligne as $valeur) {
@@ -53,7 +48,6 @@ foreach ($lignes as $ligne) {
     $html .= '</tr>';
 }
 $html .= '</table>';
-
 $mpdf->WriteHTML($html);
 
 // Adding extraction date
@@ -61,7 +55,7 @@ $extrac_timecode = "EXTRAIT DU " . date("d/m/Y") . " À " . date("H:i");
 $mpdf->WriteHTML('<p>' . $extrac_timecode . '</p>');
 
 // Output the PDF as download
-$mpdf->Output('export.pdf', Destination::DOWNLOAD);
+$mpdf->Output('export.pdf', 'D');
 
 unset($_SESSION['export_data']);
 header('Location: export.php');
