@@ -6,16 +6,16 @@
 //     exit();
 // }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $table = $_POST['table'];
     $lignes = $_POST['lignes'];
     $nbLignes = $_POST['nbLignes'];
     $fichier = $_POST['fichier'];
     $format = $_POST['format'];
 
-    echo $_POST['table'];
-    echo $_POST['format'];
-    if (empty($_POST['numRemise'])) {
+    echo $table;
+    echo $format;
+    if (!empty($_POST['numRemise'])) {
         $numRemise = $_POST['numRemise'];
     }
 
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $title .= "LISTE DES TRANSACTIONS DE LA REMISE N° $numRemise";
         $nomsColonnes = array("N° SIREN", "Raison sociale", "N° Remise", "Date de remise", "Nbre de transactions", "Devise", "Montant total");
     } else {
-        header("Location: ../");
+//        header("Location: ../");
         exit();
     }
 
@@ -44,16 +44,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $title .= " DES ENTREPRISES ENREGISTRÉES SUR BANKLINK.";
     }
 
-    $export_data = [
+    $_SESSION['export_data'] = [
         'nbLignes' => $nbLignes,
         'nomsColonnes' => $nomsColonnes,
         'lignes' => $lignes,
         'title' => $title
     ];
-    header("Location: ".$format.".php?export_data=&export_data");
+
+    header("Location: ".$format.".php");
 } else {
-    // header("Location: ../");
+     header("Location: ../");
 }
-echo $_POST['table'];
 exit();
 ?>
