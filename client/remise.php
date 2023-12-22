@@ -88,15 +88,7 @@ include("../includes/functions.php");
             }
             $resultat->execute();
             $nbLignes = $resultat->rowCount();
-            $requeteString = $resultat->queryString;
-            $requeteString = str_replace(":siren", $_SESSION['siren'], $requeteString);
-            if (strpos($requeteString, ":numRemise") !== false) {
-                $requeteString = str_replace(":numRemise", $_POST['n_remise'], $requeteString);
-            }
-            if (strpos($requeteString, ":debut") !== false) {
-                $requeteString = str_replace(":debut", $d_debut, $requeteString);
-                $requeteString = str_replace(":fin", $d_fin, $requeteString);
-            }
+            $lignes = $resultat->fetchAll(PDO::FETCH_OBJ);
             ?>
         </div>
         <!-- Formulaire de recherche -->
@@ -107,7 +99,9 @@ include("../includes/functions.php");
             <div class="export">
                 <form action="../export/export.php" method="post" id="exportForm">
                     <input type="hidden" name="table" value="remise">
-                    <input type="hidden" name="requete" value="<?php echo $resultat; ?>">
+                    <input type="hidden" name="lignes" value="<?php echo htmlspecialchars(json_encode($lignes)); ?>">
+                    <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
+                    <input type="hidden" name="fichier" value="remise.php">
                     <label for="format"></label>
                     <select name="format" id="format">
                         <option value="" disabled selected>Exporter en</option>
@@ -136,7 +130,7 @@ include("../includes/functions.php");
                 </thead>
                 <tbody>
                 <?php
-                while ($ligne = $resultat->fetch(PDO::FETCH_OBJ)) {
+                foreach ($lignes as $ligne) {
                     echo "<tr>";
                     echo "<td>$ligne->siren</td>";
                     echo "<td>$ligne->raisonSociale</td>";
