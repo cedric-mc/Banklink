@@ -25,7 +25,7 @@ include("../includes/functions.php");
             <input id="nav-toggle" type="checkbox">
             <div class="logo">BankLink</div>
             <ul class="links">
-                <li><a href="index.php">Trésorerie</a></li>
+                <li><a href="./">Trésorerie</a></li>
                 <li><a href="remise.php">Remise</a></li>
                 <li><a href="marchands.php">Marchands</a></li>
                 <li><a href="impaye.php">Impayé</a></li>
@@ -109,16 +109,7 @@ include("../includes/functions.php");
             }
             $resultat->execute();
             $nbLignes = $resultat->rowCount();
-            $requeteString = $resultat->queryString;
-            if (strpos($requeteString, ":treso")) {
-                $requeteString = str_replace(":treso", $_POST['treso'], $requeteString);
-            }
-            if (strpos($requeteString, ":siren")) {
-                $requeteString = str_replace(":siren", $_POST['siren'], $requeteString);
-            }
-            if (strpos($requeteString, ":rs")) {
-                $requeteString = str_replace(":rs", $_POST['rs'], $requeteString);
-            }
+            $lignes = $resultat->fetchAll(PDO::FETCH_OBJ);
             ?>
         </div>
         <!-- Formulaire de recherche -->
@@ -129,8 +120,9 @@ include("../includes/functions.php");
             <div class="export">
                 <form action="../export/export.php" method="post" id="exportForm">
                     <input type="hidden" name="table" value="treso">
-                    <input type="hidden" name="requete" value="<?php echo $requeteString; ?>">
-                    <label for="format"></label>
+                    <input type="hidden" name="lignes" value="<?php echo htmlspecialchars(json_encode($lignes)); ?>">
+                    <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
+                    <input type="hidden" name="fichier" value="./">
                     <select name="format" id="format">
                         <option value="" disabled selected>Exporter en</option>
                         <option value="csv">CSV</option>
@@ -150,12 +142,12 @@ include("../includes/functions.php");
                         <th>Raison Sociale</th>
                         <th>Nombre de Transactions</th>
                         <th>Devise</th>
-                        <th>Montant total</th>
+                        <th>Montant Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    while ($ligne = $resultat->fetch(PDO::FETCH_OBJ)) {
+                    foreach ($lignes as $ligne) {
                         echo "<tr>";
                         echo "<td>$ligne->siren</td>";
                         echo "<td>$ligne->raisonSociale</td>";

@@ -24,6 +24,7 @@ if (!is_dir($tmpDir)) {
 }
 
 require_once("../vendor/autoload.php");
+include("../includes/functions.php");
 
 $mpdf = new Mpdf\Mpdf(['tempDir' => $tmpDir, 'orientation' => 'P']);
 $stylesheet = file_get_contents('../style/tableau.css'); // Path to your CSS file
@@ -43,6 +44,10 @@ $html .= '</tr>';
 foreach ($lignes as $ligne) {
     $html .= '<tr>';
     foreach ($ligne as $valeur) {
+        // Si la valeur est une datetime, on la formate
+        if (preg_match("/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/", $valeur)) {
+            $valeur = format_date($valeur);
+        }
         $html .= '<td style="padding: 5px;">' . $valeur . '</td>';
     }
     $html .= '</tr>';

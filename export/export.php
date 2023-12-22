@@ -11,39 +11,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    if (!empty($_POST['numRemise'])) {
-        $numRemise = $_POST['numRemise'];
-    }
-
     include("../includes/functions.php");
 
     $title = "";
     if ($table == 'treso') {
         $title .= "LISTE DES TRÉSORERIES";
-        $nomsColonnes = array("N° SIREN", "Raison Sociale", "Nombre de Transactions", "Devise", "Montant total");
+        $nomsColonnes = array("N° SIREN", "Raison Sociale", "Nombre de Transactions", "Devise", "Montant Total");
     } elseif ($table == 'remise') {
         $title .= "LISTE DES REMISES";
+        $nomsColonnes = array("N° SIREN", "Raison Sociale", "N° Remise", "Date Traitement", "Nbre Transactions", "Devise", "Montant Total");
     } elseif ($table == 'impaye') {
         $title .= "LISTE DES IMPAYÉS";
-        $nomsColonnes = array("N° SIREN", "Raison Sociale", "Date de vente", "Date de remise", "N° Carte", "Réseau", "N° Dossier Impayé", "Devise", "Montant", "Libellé Impayé");
+        $nomsColonnes = array("N° SIREN", "Raison Sociale", "Date Vente", "Date Remise", "N° Carte", "Réseau", "N° Dossier Impayé", "Devise", "Montant", "Libellé Impayé");
     } elseif ($table == 'sub_remise') {
-        $title .= "LISTE DES TRANSACTIONS DE LA REMISE N° $numRemise";
-        $nomsColonnes = array("N° SIREN", "Raison Sociale", "N° Remise", "Date de remise", "Nbre de transactions", "Devise", "Montant total");
+        $title .= "LISTE DES TRANSACTIONS DE LA REMISE N° $_POST[numRemise]";
+        $nomsColonnes = array("N° SIREN", "Date Vente", "N° Carte", "Réseau", "N° Autorisation", "Devise", "Montant");
+    } elseif ($table == 'sub_impaye') {
+        $title .= "LISTE DES TRANSACTIONS D'IMPAYÉS du client $_POST[siren]";
+        $nomsColonnes = array("N° SIREN", "Raison Sociale", "Date Vente", "Date Remise", "N° Carte", "Réseau", "N° Dossier Impayé", "Devise", "Montant", "Libellé Impayé");
     } else {
         header("Location: ../");
         exit();
     }
 
     if ($_SESSION['type'] == "client") {
-        $title .= " DE L'ENTREPRISE \n$_SESSION[raisonSociale] - N° SIREN $_SESSION[siren].";
-    } elseif ($_SESSION['type'] == "product-owner") {
+        $title .= " DE L'ENTREPRISE $_SESSION[raisonSociale] - N° SIREN $_SESSION[siren].";
+    } elseif ($_SESSION['type'] == "product-owner" && $table != 'sub_impaye') {
         $title .= " DES ENTREPRISES ENREGISTRÉES SUR BANKLINK.";
+    }
+
+    // Si l'il y a des données de 16 de longueurs, alors on masque les 4 derniers chiffres
+    $lignes = (json_decode($_POST['lignes'], true));
+    foreach ($lignes as $key => $value) {
+        foreach ($value as $key2 => $value2) {
+            if (strlen($value2) == 16) {
+                $lignes[$key][$key2] = masquerNumeroCarte($value2);
+            }
+        }
     }
 
     $_SESSION['export_data'] = [
         'nbLignes' => $nbLignes,
         'nomsColonnes' => $nomsColonnes,
-        'lignes' => $_POST['lignes'],
+        'lignes' => json_encode($lignes),
         'title' => $title,
         'fichier' => $_POST['fichier']
     ];

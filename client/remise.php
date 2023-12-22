@@ -102,7 +102,6 @@ include("../includes/functions.php");
                     <input type="hidden" name="lignes" value="<?php echo htmlspecialchars(json_encode($lignes)); ?>">
                     <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
                     <input type="hidden" name="fichier" value="remise.php">
-                    <label for="format"></label>
                     <select name="format" id="format">
                         <option value="" disabled selected>Exporter en</option>
                         <option value="csv">CSV</option>
@@ -119,12 +118,12 @@ include("../includes/functions.php");
                 <thead>
                     <tr>
                         <th>N° SIREN</th>
-                        <th>Raison sociale</th>
+                        <th>Raison Sociale</th>
                         <th>N° Remise</th>
-                        <th>Date traitement</th>
-                        <th>Nbre transactions</th>
+                        <th>Date Traitement</th>
+                        <th>Nbre Transactions</th>
                         <th>Devise</th>
-                        <th>Montant total</th>
+                        <th>Montant Total</th>
                         <th>Détails</th>
                     </tr>
                 </thead>
@@ -135,7 +134,7 @@ include("../includes/functions.php");
                     echo "<td>$ligne->siren</td>";
                     echo "<td>$ligne->raisonSociale</td>";
                     echo "<td>$ligne->numRemise</td>";
-                    echo "<td>".date_format(date_create($ligne->dateRemise), 'd/m/Y')."</td>";
+                    echo "<td>".format_date($ligne->dateRemise)."</td>";
                     echo "<td>$ligne->transactions</td>";
                     echo "<td>$ligne->devise</td>";
                     echo "<td class='".checkNumber($ligne->montant)."'>$ligne->montant</td>";
@@ -176,12 +175,11 @@ include("../includes/functions.php");
         <!-- Fenêtre interne / modal -->
         <!-- Scripts -->
         <script>
-            document.getElementById('format').addEventListener('change', function () {
+            // Pour l'exportation des données du tableau
+            document.getElementById('format').addEventListener('change', function() {
                 var selectedFormat = this.value;
                 if (selectedFormat) {
-                    // Modify the 'action' attribute of the form to the appropriate file
                     document.getElementById('exportForm').action = '../export/export.php';
-                    // Submit the form to redirect to the selected file
                     document.getElementById('exportForm').submit();
                 }
             });

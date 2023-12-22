@@ -149,7 +149,7 @@ $data = json_encode($data);
         <h2 class="title-resultat">Trésoreries</h2>
         <!-- Formulaire d'exportation -->
         <div class="export">
-            <form action="../export/export.php" method="post">
+            <form action="../export/export.php" method="post" id="exportForm">
                 <!-- Champs du formulaire -->
                 <input type="hidden" name="table" value="treso">
                 <input type="hidden" name="lignes" value="<?php echo htmlspecialchars(json_encode($lignes)); ?>">
@@ -161,7 +161,7 @@ $data = json_encode($data);
                     <option value="xls">Excel</option>
                     <option value="pdf">PDF</option>
                 </select>
-                <button type="submit">Exporter</button>
+<!--                <button type="submit">Exporter</button>-->
             </form>
         </div>
         <!-- Formulaire d'exportation -->
@@ -175,7 +175,7 @@ $data = json_encode($data);
                     <th>Raison Sociale</th>
                     <th>Nombre de Transactions</th>
                     <th>Devise</th>
-                    <th>Montant total</th>
+                    <th>Montant Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -349,13 +349,11 @@ $data = json_encode($data);
             updateChartType(chartInstance, newChartType);
         });
 
-        // Submit le form sans le bouton
-        document.getElementById('format').addEventListener('change', function () {
+        // Pour l'exportation des données du tableau
+        document.getElementById('format').addEventListener('change', function() {
             var selectedFormat = this.value;
             if (selectedFormat) {
-                // Modify the 'action' attribute of the form to the appropriate file
                 document.getElementById('exportForm').action = '../export/export.php';
-                // Submit the form to redirect to the selected file
                 document.getElementById('exportForm').submit();
             }
         });

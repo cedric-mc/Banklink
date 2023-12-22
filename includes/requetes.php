@@ -506,11 +506,11 @@ $requetes = array(
            devise,
            (SELECT SUM(r2.montant)
              FROM REMISE r2
-             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montantTotal
     FROM REMISE r,
-         CLIENT c,
-         MOTIFS_IMPAYES m
+         CLIENT c
     WHERE r.siren = c.siren
+      AND r.montant < 0
     GROUP BY c.siren;",
     // Requête pour la récupération des données des impayés de tous les clients
 

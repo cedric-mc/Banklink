@@ -151,20 +151,7 @@ include("../includes/requetes.php");
             }
             $resultat->execute();
             $nbLignes = $resultat->rowCount();
-            $requeteString = $resultat->queryString;
-            if (strpos($requeteString, ":siren") !== false) {
-                $requeteString = str_replace(":siren", $_POST['siren'], $requeteString);
-            }
-            if (strpos($requeteString, ":rs") !== false) {
-                $requeteString = str_replace(":rs", $_POST['rs'], $requeteString);
-            }
-            if (strpos($requeteString, ":numRemise") !== false) {
-                $requeteString = str_replace(":numRemise", $_POST['n_remise'], $requeteString);
-            }
-            if (strpos($requeteString, ":debut") !== false) {
-                $requeteString = str_replace(":debut", $d_debut, $requeteString);
-                $requeteString = str_replace(":fin", $d_fin, $requeteString);
-            }
+            $lignes = $resultat->fetchAll(PDO::FETCH_OBJ);
             ?>
         </div>
         <!-- Formulaire de recherche -->
@@ -174,9 +161,10 @@ include("../includes/requetes.php");
             <!-- Formulaire d'exportation -->
             <div class="export">
                 <form action="../export/export.php" method="post" id="exportForm">
-                    <input type="hidden" name="table" value="treso">
-                    <input type="hidden" name="requete" value="<?php echo $requeteString; ?>">
-                    <label for="format"></label>
+                    <input type="hidden" name="table" value="remise">
+                    <input type="hidden" name="lignes" value="<?php echo htmlspecialchars(json_encode($lignes)); ?>">
+                    <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
+                    <input type="hidden" name="fichier" value="remise.php">
                     <select name="format" id="format">
                         <option value="" disabled selected>Exporter en</option>
                         <option value="csv">CSV</option>
@@ -193,18 +181,18 @@ include("../includes/requetes.php");
                 <thead>
                     <tr>
                         <th>N° SIREN</th>
-                        <th>Raison sociale</th>
+                        <th>Raison Sociale</th>
                         <th>N° Remise</th>
-                        <th>Date traitement</th>
-                        <th>Nbre transactions</th>
+                        <th>Date Traitement</th>
+                        <th>Nbre Transactions</th>
                         <th>Devise</th>
-                        <th>Montant total</th>
+                        <th>Montant Total</th>
                         <th>Détails</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    while ($ligne = $resultat->fetch(PDO::FETCH_OBJ)) {
+                    foreach ($lignes as $ligne) {
                         echo "<tr>";
                         echo "<td>$ligne->siren</td>";
                         echo "<td>$ligne->raisonSociale</td>";

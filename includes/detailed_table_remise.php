@@ -16,26 +16,24 @@ $result = $cnx->prepare($req);
 $result->bindParam(':remise', $remise, PDO::PARAM_INT);
 $result->execute();
 $nbLignes = $result->rowCount();
-
-// Remplacement des paramètres de la requête pour l'export
-$reqString = str_replace(":remise", $remise, $result->queryString);
+$lignes = $result->fetchAll(PDO::FETCH_OBJ);
 
 // Fonction pour générer le tableau HTML
-function generateTable($result) {
+function generateTable($lignes) {
     $tableHead = "
     <thead>
         <tr>
             <th>N° SIREN</th>
-            <th>Date vente</th>
+            <th>Date Vente</th>
             <th>N° Carte</th>
             <th>Réseau</th>
-            <th>N° autorisation</th>
+            <th>N° Autorisation</th>
             <th>Devise</th>
             <th>Montant</th>
         </tr>
     </thead>";
     $tableBody = "<tbody>";
-    while ($subligne = $result->fetch(PDO::FETCH_OBJ)) {
+    foreach ($lignes as $subligne) {
         $tableBody .= "<tr>";
         $tableBody .= "<td>$subligne->siren</td>";
         $tableBody .= "<td>" . format_date($subligne->dateTransaction) . "</td>";
@@ -55,9 +53,10 @@ echo "<h1>Détails de la Remise n° $remise</h1>";
 echo "<div class='export'>";
 echo "<form action='../export/export.php' method='post' id='exportForm'>";
 echo "<input type='hidden' name='table' value='sub_remise'>";
-echo "<input type='hidden' name='requete' value='" . $reqString . "'>";
+echo "<input type='hidden' name='lignes' value='" . htmlspecialchars(json_encode($lignes)) . "'/>";
+echo "<input type='hidden' name='nbLignes' value='$nbLignes'>";
+echo "<input type='hidden' name='fichier' value='detailed_table_remise.php'>";
 echo "<input type='hidden' name='numRemise' value='" . $remise . "'>";
-echo "<label for='format'></label>";
 echo "<select name='format' id='format'>";
 echo "<option value='' disabled selected>Exporter en</option>";
 echo "<option value='csv'>CSV</option>";
@@ -68,4 +67,4 @@ echo "<button type='submit' id='exportButton'>Exporter</button>";
 echo "</form>";
 echo "</div>";
 echo "<span class='total'>$nbLignes résultat(s)</span>";
-echo generateTable($result);
+echo generateTable($lignes);

@@ -183,20 +183,7 @@ $dataMotifs = json_encode($dataMotifs);
             }
             $resultat->execute();
             $nbLignes = $resultat->rowCount();
-            $requeteString = $resultat->queryString;
-            if (strpos($requeteString, ":siren") !== false) {
-                $requeteString = str_replace(":siren", $_POST['siren'], $requeteString);
-            }
-            if (strpos($requeteString, ":rs") !== false) {
-                $requeteString = str_replace(":rs", $_POST['rs'], $requeteString);
-            }
-            if (strpos($requeteString, ":debut") !== false) {
-                $requeteString = str_replace(":debut", $d_debut, $requeteString);
-                $requeteString = str_replace(":fin", $d_fin, $requeteString);
-            }
-            if (strpos($requeteString, ":numDossierImpaye") !== false) {
-                $requeteString = str_replace(":numDossierImpaye", $_POST['dossier_impaye'], $requeteString);
-            }
+            $lignes = $resultat->fetchAll(PDO::FETCH_OBJ);
             ?>
         </div>
         <!-- Formulaire de recherche -->
@@ -206,9 +193,10 @@ $dataMotifs = json_encode($dataMotifs);
             <!-- Formulaire d'exportation -->
             <div class="export">
                 <form action="../export/export.php" method="post" id="exportForm">
-                    <input type="hidden" name="table" value="treso">
-                    <input type="hidden" name="requete" value="<?php echo $requeteString; ?>">
-                    <label for="format"></label>
+                    <input type="hidden" name="table" value="impaye">
+                    <input type="hidden" name="lignes" value="<?php echo htmlspecialchars(json_encode($lignes)); ?>">
+                    <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
+                    <input type="hidden" name="fichier" value="impaye.php">
                     <select name="format" id="format">
                         <option value="" disabled selected>Exporter en</option>
                         <option value="csv">CSV</option>
@@ -226,17 +214,17 @@ $dataMotifs = json_encode($dataMotifs);
                     <tr>
                         <th>N° SIREN</th>
                         <th>Devise</th>
-                        <th>Montant</th>
+                        <th>Montant Total</th>
                         <th>Détails</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    while ($ligne = $resultat->fetch(PDO::FETCH_OBJ)) {
+                    foreach ($lignes as $ligne) {
                         echo "<tr>";
                         echo "<td>$ligne->siren</td>";
                         echo "<td>$ligne->devise</td>";
-                        echo "<td class='" . checkNumber($ligne->montant) . "'>$ligne->montant</td>";
+                        echo "<td class='" . checkNumber($ligne->montantTotal) . "'>$ligne->montantTotal</td>";
                         echo "<td><button class='modal-btn modal-trigger-impaye' data-row='$ligne->siren'>...</button></td>";
                         echo "</tr>";
                     }

@@ -240,6 +240,7 @@ nav .icon-burger .line {
     border: 1px solid #ddd;
     border-radius: 6px;
     outline: none;
+    white-space: nowrap;
 }
 
 /* Adapter le code CSS juste au-dessus (.inputs input) pour les select, option */

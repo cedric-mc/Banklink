@@ -113,15 +113,7 @@ $dataMotifs = json_encode($dataMotifs);
             }
             $resultat->execute();
             $nbLignes = $resultat->rowCount();
-            $requeteString = $resultat->queryString;
-            $requeteString = str_replace(":siren", $_SESSION['siren'], $requeteString);
-            if (strpos($requeteString, ":numDossierImpaye") !== false) {
-                $requeteString = str_replace(":numDossierImpaye", $_POST['dossier_impaye'], $requeteString);
-            }
-            if (strpos($requeteString, ":debut") !== false) {
-                $requeteString = str_replace(":debut", $d_debut, $requeteString);
-                $requeteString = str_replace(":fin", $d_fin, $requeteString);
-            }
+            $lignes = $resultat->fetchAll(PDO::FETCH_OBJ);
             ?>
         </div>
         <!-- Formulaire de recherche -->
@@ -131,9 +123,10 @@ $dataMotifs = json_encode($dataMotifs);
             <!-- Formulaire d'exportation -->
             <div class="export">
                 <form action="../export/export.php" method="post" id="exportForm">
-                    <input type="hidden" name="table" value="treso">
-                    <input type="hidden" name="requete" value="<?php echo $requeteString; ?>">
-                    <label for="format"></label>
+                    <input type="hidden" name="table" value="impaye">
+                    <input type="hidden" name="lignes" value="<?php echo htmlspecialchars(json_encode($lignes)); ?>">
+                    <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
+                    <input type="hidden" name="fichier" value="impaye.php">
                     <select name="format" id="format">
                         <option value="" disabled selected>Exporter en</option>
                         <option value="csv">CSV</option>
@@ -151,23 +144,23 @@ $dataMotifs = json_encode($dataMotifs);
                     <tr>
                         <th>N° SIREN</th>
                         <th>Raison Sociale</th>
-                        <th>Date vente</th>
-                        <th>Date remise</th>
+                        <th>Date Vente</th>
+                        <th>Date Remise</th>
                         <th>N° Carte</th>
                         <th>Réseau</th>
                         <th>N° Dossier Impayé</th>
                         <th>Devise</th>
                         <th>Montant</th>
-                        <th>Libellé impayé</th>
+                        <th>Libellé Impayé</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    while ($ligne = $resultat->fetch(PDO::FETCH_OBJ)) {
+                    foreach ($lignes as $ligne) {
                         echo "<tr>";
                         echo "<td>$ligne->siren</td>";
                         echo "<td>$ligne->raisonSociale</td>";
-                        echo "<td>" . date_format(date_create($ligne->dateTransaction), 'd/m/Y') . "</td>";
+                        echo "<td>" . format_date($ligne->dateTransaction) . "</td>";
                         echo "<td>" . date_format(date_create($ligne->dateRemise), 'd/m/Y') . "</td>";
                         echo "<td>" . masquerNumeroCarte($ligne->numCarte) . "</td>";
                         echo "<td>$ligne->reseau</td>";
