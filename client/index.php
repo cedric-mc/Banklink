@@ -140,11 +140,7 @@ $data = json_encode($data);
         }
         $resultat->execute();
         $nbLignes = $resultat->rowCount();
-        $requeteString = $resultat->queryString;
-        $requeteString = str_replace(":siren", $_SESSION['siren'], $requeteString);
-        if (strpos($requeteString, ":treso") !== false) {
-            $requeteString = str_replace(":treso", $_POST['treso'], $requeteString);
-        }
+        $lignes = $resultat->fetchAll(PDO::FETCH_OBJ);
         ?>
     </div>
     <!-- Formulaire de recherche -->
@@ -154,8 +150,9 @@ $data = json_encode($data);
         <!-- Formulaire d'exportation -->
         <div class="export">
             <form action="../export/export.php" method="post" id="exportForm">
-                <input type="hidden" name="table" value="treso1">
-                <input type="hidden" name="requete" value="<?php echo $requeteString; ?>">
+                <input type="hidden" name="table" value="treso">
+                <input type="hidden" name="lignes" value="<?php echo $lignes; ?>">
+                <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
                 <label for="format"></label>
                 <select name="format" id="format">
                     <option value="" disabled selected>Exporter en</option>
@@ -163,6 +160,7 @@ $data = json_encode($data);
                     <option value="xls">Excel</option>
                     <option value="pdf">PDF</option>
                 </select>
+                <button type="submit">Exporter</button>
             </form>
         </div>
         <!-- Formulaire d'exportation -->
@@ -181,7 +179,7 @@ $data = json_encode($data);
             </thead>
             <tbody>
                 <?php
-                while ($ligne = $resultat->fetch(PDO::FETCH_OBJ)) {
+                foreach ($lignes as $ligne) {
                     echo "<tr>";
                     echo "<td>$ligne->siren</td>";
                     echo "<td>$ligne->raisonSociale</td>";
@@ -348,14 +346,6 @@ $data = json_encode($data);
 
             // Mettre à jour le type du graphique existant
             updateChartType(chartInstance, newChartType);
-        });
-
-        document.getElementById('format').addEventListener('click', function() {
-            var selectedFormat = this.value;
-            if (selectedFormat) {
-                document.getElementById('exportForm').action = '../export/export.php';
-                document.getElementById('exportForm').submit();
-            }
         });
     </script>
     <script src="../script/tableau.js"></script>

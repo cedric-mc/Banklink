@@ -5,15 +5,15 @@ if (empty($_SESSION['idUser']) || ($_SESSION['type'] != "client" && $_SESSION['t
     exit();
 }
 
-if (empty($_SESSION['export_data'])) {
+if (empty($_GET['export_data'])) {
     header('Location: export.php');
     exit();
 }
 
-$nbLignes = $_SESSION['export_data']['nbLignes'];
-$nomsColonnes = $_SESSION['export_data']['nomsColonnes'];
-$lignes = $_SESSION['export_data']['lignes'];
-$title = $_SESSION['export_data']['title'];
+$nbLignes = $_GET['export_data']['nbLignes'];
+$nomsColonnes = $_GET['export_data']['nomsColonnes'];
+$lignes = $_GET['export_data']['lignes'];
+$title = $_GET['export_data']['title'];
 
 // Définir un répertoire temporaire accessible en écriture
 $tmpDir = 'tmp/';

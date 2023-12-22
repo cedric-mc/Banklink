@@ -106,8 +106,8 @@ include("../includes/functions.php");
             <!-- Formulaire d'exportation -->
             <div class="export">
                 <form action="../export/export.php" method="post" id="exportForm">
-                    <input type="hidden" name="table" value="treso">
-                    <input type="hidden" name="requete" value="<?php echo $requeteString; ?>">
+                    <input type="hidden" name="table" value="remise">
+                    <input type="hidden" name="requete" value="<?php echo $resultat; ?>">
                     <label for="format"></label>
                     <select name="format" id="format">
                         <option value="" disabled selected>Exporter en</option>

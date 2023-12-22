@@ -155,7 +155,7 @@ $dataMotifs = json_encode($dataMotifs);
                         <th>Date remise</th>
                         <th>N° Carte</th>
                         <th>Réseau</th>
-                        <th>N° Dossier impayé</th>
+                        <th>N° Dossier Impayé</th>
                         <th>Devise</th>
                         <th>Montant</th>
                         <th>Libellé impayé</th>
