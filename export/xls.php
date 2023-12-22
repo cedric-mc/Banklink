@@ -11,7 +11,7 @@ if (empty($_SESSION['export_data'])) {
 }
 $nbLignes = $_SESSION['export_data']['nbLignes'];
 $nomsColonnes = $_SESSION['export_data']['nomsColonnes'];
-$lignes = $_SESSION['export_data']['lignes'];
+$lignes = json_decode($_SESSION['export_data']['lignes']);
 $title = $_SESSION['export_data']['title'];
 
 require_once("../vendor/autoload.php");
@@ -37,7 +37,6 @@ foreach ($nomsColonnes as $nomColonne) {
     $sheet->setCellValue($col . $row, $nomColonne);
     $col++;
 }
-
 $row++;
 
 // Ajout des lignes de données

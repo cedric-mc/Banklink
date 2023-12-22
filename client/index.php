@@ -149,10 +149,10 @@ $data = json_encode($data);
         <h2 class="title-resultat">Trésoreries</h2>
         <!-- Formulaire d'exportation -->
         <div class="export">
-            <form action="../export/export.php" method="post">
+            <form action="/Banklink/export/export.php" method="post">
                 <!-- Champs du formulaire -->
                 <input type="hidden" name="table" value="treso">
-                <input type="hidden" name="lignes" value="<?php echo htmlspecialchars(json_encode($lignes)); ?>">
+                <input type="hidden" name="lignes" value="<?php echo json_encode($lignes); ?>">
                 <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
                 <input type="hidden" name="fichier" value="./">
                 <select name="format" id="format">
@@ -350,7 +350,7 @@ $data = json_encode($data);
         });
 
         // Submit le form sans le bouton
-        /*document.getElementById('format').addEventListener('change', function () {
+        document.getElementById('format').addEventListener('change', function () {
             var selectedFormat = this.value;
             if (selectedFormat) {
                 // Modify the 'action' attribute of the form to the appropriate file
@@ -358,7 +358,7 @@ $data = json_encode($data);
                 // Submit the form to redirect to the selected file
                 document.getElementById('exportForm').submit();
             }
-        });*/
+        });
     </script>
     <script src="../script/tableau.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

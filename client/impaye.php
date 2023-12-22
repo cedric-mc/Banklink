@@ -50,7 +50,7 @@ $dataMotifs = json_encode($dataMotifs);
             <input id="nav-toggle" type="checkbox">
             <div class="logo">BankLink</div>
             <ul class="links">
-                <li><a href="index.php">Trésorerie</a></li>
+                <li><a href="./">Trésorerie</a></li>
                 <li><a href="remise.php">Remise</a></li>
                 <li><a href="impaye.php">Impayé</a></li>
                 <li><a href="profil.php">Mon Profil</a></li>
