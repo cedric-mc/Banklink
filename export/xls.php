@@ -40,17 +40,22 @@ foreach ($nomsColonnes as $nomColonne) {
 $row++;
 
 // Ajout des lignes de données
-foreach ($lignes as $ligne) {
-    $col = 'A';
-    foreach ($ligne as $key => $value) {
-        if (is_null($value)) {
-            $value = "Pas de données";
-        }
-        $sheet->setCellValue($col . $row, $value);
-        $col++;
-    }
-    $row++;
+if (is_array($lignes)) {
+    $lignes = array_map(function ($ligne) {
+        return (array) $ligne;
+    }, $lignes);
 }
+// foreach ($lignes as $ligne) {
+//     $col = 'A';
+//     foreach ($ligne as $key => $value) {
+//         if (is_null($value)) {
+//             $value = "Pas de données";
+//         }
+//         $sheet->setCellValue($col . $row, $value);
+//         $col++;
+//     }
+//     $row++;
+// }
 
 $filename = "export.xlsx";
 $writer = new Xlsx($spreadsheet);
