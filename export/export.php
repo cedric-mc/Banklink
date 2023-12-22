@@ -1,10 +1,10 @@
 <?php
-session_start();
-$_SESSION['export_data'] = array();
-if (empty($_SESSION['idUser']) || ($_SESSION['type'] != "client" && $_SESSION['type'] != "product-owner")) {
-    header('Location: ../');
-    exit();
-}
+// session_start();
+// $_SESSION['export_data'] = array();
+// if (empty($_SESSION['idUser']) || ($_SESSION['type'] != "client" && $_SESSION['type'] != "product-owner")) {
+//     header('Location: ../');
+//     exit();
+// }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $table = $_POST['table'];
