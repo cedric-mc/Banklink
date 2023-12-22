@@ -45,17 +45,6 @@ if (is_array($lignes)) {
         return (array) $ligne;
     }, $lignes);
 }
-// foreach ($lignes as $ligne) {
-//     $col = 'A';
-//     foreach ($ligne as $key => $value) {
-//         if (is_null($value)) {
-//             $value = "Pas de données";
-//         }
-//         $sheet->setCellValue($col . $row, $value);
-//         $col++;
-//     }
-//     $row++;
-// }
 
 $filename = "export.xlsx";
 $writer = new Xlsx($spreadsheet);

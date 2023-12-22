@@ -149,7 +149,7 @@ $data = json_encode($data);
         <h2 class="title-resultat">Trésoreries</h2>
         <!-- Formulaire d'exportation -->
         <div class="export">
-            <form action="/Banklink/export/export.php" method="post">
+            <form action="../export/export.php" method="post">
                 <!-- Champs du formulaire -->
                 <input type="hidden" name="table" value="treso">
                 <input type="hidden" name="lignes" value="<?php echo json_encode($lignes); ?>">

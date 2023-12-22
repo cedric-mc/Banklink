@@ -5,15 +5,16 @@ if (empty($_SESSION['idUser']) || ($_SESSION['type'] != "client" && $_SESSION['t
     exit();
 }
 
-if (empty($_GET['export_data'])) {
+if (empty($_SESSION['export_data'])) {
     header('Location: export.php');
     exit();
 }
 
-$nbLignes = $_GET['export_data']['nbLignes'];
-$nomsColonnes = $_GET['export_data']['nomsColonnes'];
-$lignes = $_GET['export_data']['lignes'];
-$title = $_GET['export_data']['title'];
+$nbLignes = $_SESSION['export_data']['nbLignes'];
+$nomsColonnes = $_SESSION['export_data']['nomsColonnes'];
+$lignes = json_decode($_SESSION['export_data']['lignes']);
+$title = $_SESSION['export_data']['title'];
+var_dump($lignes);
 
 // Définir un répertoire temporaire accessible en écriture
 $tmpDir = 'tmp/';
@@ -43,10 +44,11 @@ foreach ($nomsColonnes as $nomColonne) {
 }
 $html .= '</tr>';
 
+$lignes = (array)$lignes;
 foreach ($lignes as $ligne) {
     $html .= '<tr>';
-    foreach ($ligne as $value) {
-        $html .= '<td style="padding: 5px;">' . $value . '</td>';
+    foreach ($ligne as $valeur) {
+        $html .= '<td style="padding: 5px;">' . $valeur . '</td>';
     }
     $html .= '</tr>';
 }

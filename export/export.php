@@ -20,15 +20,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = "";
     if ($table == 'treso') {
         $title .= "LISTE DES TRÉSORERIES";
-        $nomsColonnes = array("N° SIREN", "Raison sociale", "Nombre de Transactions", "Devise", "Montant total");
+        $nomsColonnes = array("N° SIREN", "Raison Sociale", "Nombre de Transactions", "Devise", "Montant total");
     } elseif ($table == 'remise') {
         $title .= "LISTE DES REMISES";
     } elseif ($table == 'impaye') {
         $title .= "LISTE DES IMPAYÉS";
-        $nomsColonnes = array("N° SIREN", "Raison sociale", "Date de vente", "Date de remise", "N° Carte", "Réseau", "N° Dossier Impayé", "Devise", "Montant", "Libellé Impayé");
+        $nomsColonnes = array("N° SIREN", "Raison Sociale", "Date de vente", "Date de remise", "N° Carte", "Réseau", "N° Dossier Impayé", "Devise", "Montant", "Libellé Impayé");
     } elseif ($table == 'sub_remise') {
         $title .= "LISTE DES TRANSACTIONS DE LA REMISE N° $numRemise";
-        $nomsColonnes = array("N° SIREN", "Raison sociale", "N° Remise", "Date de remise", "Nbre de transactions", "Devise", "Montant total");
+        $nomsColonnes = array("N° SIREN", "Raison Sociale", "N° Remise", "Date de remise", "Nbre de transactions", "Devise", "Montant total");
     } else {
         header("Location: ../");
         exit();
