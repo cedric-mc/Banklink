@@ -10,8 +10,8 @@ if (!empty($_GET['id'])) {
     $stmt->bindParam(':idUser', $_GET['id'], PDO::PARAM_INT);
     $stmt->execute();
 
-    // Afficher un message de succès
-    echo "<script>window.setTimeout(function() {window.location = './?etat=1';}, 1000);</script>";
+    // Rediriger vers la page d'accueil
+    header("Location: ./?etat=suppr");
     exit();
 }
 header("Location: ./");

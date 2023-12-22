@@ -76,8 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Exécuter la requête d'insertion, afficher un message de succès ou d'erreur
         if ($stmtInsert->execute()) {
-            echo "<script>alert('Le compte client $login a été créé avec succès.');</script>";
-            echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>";
+            header("Location: ./?etat=success");
             exit();
         } else {
             echo "<script>alert('Erreur lors de la création du compte client : " . $stmtInsert->errorInfo() . "')</script>";
