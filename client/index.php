@@ -153,6 +153,7 @@ $data = json_encode($data);
                 <input type="hidden" name="table" value="treso">
                 <input type="hidden" name="lignes" value="<?php echo $lignes; ?>">
                 <input type="hidden" name="nbLignes" value="<?php echo $nbLignes; ?>">
+                <input type="hidden" name="fichier" value="./">
                 <label for="format"></label>
                 <select name="format" id="format">
                     <option value="" disabled selected>Exporter en</option>
@@ -346,6 +347,11 @@ $data = json_encode($data);
 
             // Mettre à jour le type du graphique existant
             updateChartType(chartInstance, newChartType);
+        });
+
+        // Submit le form sans le bouton
+        document.getElementById('format').addEventListener('change', function() {
+            document.getElementById('exportForm').submit();
         });
     </script>
     <script src="../script/tableau.js"></script>

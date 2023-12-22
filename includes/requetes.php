@@ -3,7 +3,7 @@ $requetes = array(
     "select_user" => "
     SELECT idUser, password, type, mail 
     FROM UTILISATEUR 
-    WHERE login = :login;",
+    WHERE login = :login AND suppr = 0;",
     // Requête pour la récupération des données de l'utilisateur selon son login
 
     "select_client" => "

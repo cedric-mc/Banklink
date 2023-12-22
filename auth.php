@@ -47,11 +47,15 @@ try {
 
             // Récupération du siren du client
             if ($_SESSION['type'] == 'client') {
-                $req = $cnx->prepare("SELECT siren FROM CLIENT WHERE idUser = :idUser");
+                $req = $cnx->prepare("SELECT siren, raisonSociale, devise, numCarte, reseau FROM CLIENT WHERE idUser = :idUser");
                 $req->bindParam(':idUser', $_SESSION['idUser'], PDO::PARAM_INT);
                 $req->execute();
                 $result = $req->fetch(PDO::FETCH_ASSOC);
                 $_SESSION['siren'] = $result['siren'];
+                $_SESSION['raisonSociale'] = $result['raisonSociale'];
+                $_SESSION['devise'] = $result['devise'];
+                $_SESSION['numCarte'] = $result['numCarte'];
+                $_SESSION['reseau'] = $result['reseau'];
                 $req->closeCursor();
             }
             unset($_SESSION['login_attempts']); // Réinitialisation du nombre d'essais

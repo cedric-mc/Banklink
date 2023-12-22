@@ -7,17 +7,6 @@ if (empty($_SESSION['idUser']) || $_SESSION['type'] != "client") {
 include("../includes/functions.php");
 include("../includes/conf.php");
 include("../includes/requetes.php");
-
-// Je récupère les informations du client
-$req = $cnx->prepare($requetes["select_client"]);
-$req->bindParam(':idUser', $_SESSION['idUser'], PDO::PARAM_INT);
-$req->execute();
-$resultat = $req->fetch(PDO::FETCH_ASSOC);
-// Je récupère le résultat avec une boucle sans utiliser la session
-foreach ($resultat as $key => $value) {
-    ${$key} = $value;
-}
-$req->closeCursor();
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,7 +50,7 @@ $req->closeCursor();
                     </div>
                     <div class="mini-info">
                         <span class="info">Raison Social : &nbsp;</span>
-                        <span class="perso-data"><?php echo $raisonSociale; ?></span>
+                        <span class="perso-data"><?php echo $_SESSION['raisonSociale']; ?></span>
                     </div>
                     <div class="mini-info">
                         <span class="info">N° de SIREN : &nbsp;</span>
@@ -74,12 +63,12 @@ $req->closeCursor();
                     <div class="mini-info">
                         <span class="info">N° et Réseau de la Carte : &nbsp;</span>
                         <span class="perso-data cache">
-                            <?php echo masquerNumeroCarte($numCarte) . " - " . $reseau ?>
+                            <?php echo masquerNumeroCarte($_SESSION['numCarte']) . " - " . $_SESSION['reseau'] ?>
                         </span>
                     </div>
                     <div class="mini-info">
                         <span class="info">Devise : &nbsp;</span>
-                        <span class="perso-data"><?php echo $devise; ?></span>
+                        <span class="perso-data"><?php echo $_SESSION['devise']; ?></span>
                     </div>
                 </div>
             </div>
