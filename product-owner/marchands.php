@@ -5,6 +5,7 @@ if (empty($_SESSION['idUser']) || $_SESSION['type'] != 'product-owner') {
     exit;
 }
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -59,7 +60,7 @@ if (empty($_SESSION['idUser']) || $_SESSION['type'] != 'product-owner') {
                         $password=NULL;
 
                         echo '<div class="compte">';
-                        echo '<p>' . htmlspecialchars($login) . '</p>';
+                        echo "<p>Login : <span style='font-style: italic'>$login</span></p>";
                         echo '<form method="post" action="traitement_clients_temp.php">';
 
                         // Champs cachés pour le formulaire de création de compte avec les valeurs correspondantes
@@ -109,7 +110,7 @@ if (empty($_SESSION['idUser']) || $_SESSION['type'] != 'product-owner') {
                         // Ajouter d'autres champs si nécessaire
 
                         echo '<div class="compte">';
-                        echo "<p>$login</p>";
+                        echo "<p>Login : <span style='font-style: italic'>$login</span></p>";
                         echo '<form method="post" action="traitement_suppression.php">';
                         echo "<input type='hidden' name='idUser' value='$idUser'>";
                         echo "<input type='hidden' name='login' value='$login'>";

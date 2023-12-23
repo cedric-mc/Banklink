@@ -79,8 +79,7 @@ $dataMotifs = json_encode($dataMotifs);
                     <select name="siren" id="siren">
                         <option value="">Tous</option>
                         <?php
-                        $requete = "SELECT siren FROM CLIENT c, UTILISATEUR u WHERE c.idUser = u.idUser AND password IS NOT NULL";
-                        $resultat = $cnx->query($requete);
+                        $resultat = $cnx->query($requetes["select_all_siren"]);
                         $sirens = $resultat->fetchAll();
                         foreach ($sirens as $siren) {
                             echo "<option value='" . $siren[0] . "'>" . $siren[0] . "</option>";
@@ -93,8 +92,7 @@ $dataMotifs = json_encode($dataMotifs);
                     <select name="rs" id="rs">
                         <option value="">Tous</option>
                         <?php
-                        $requete = "SELECT raisonSociale FROM CLIENT c, UTILISATEUR u WHERE c.idUser = u.idUser AND password IS NOT NULL";
-                        $resultat = $cnx->query($requete);
+                        $resultat = $cnx->query($requetes["select_all_rs"]);
                         $rs = $resultat->fetchAll();
                         foreach ($rs as $raisonSociale) {
                             echo "<option value='" . $raisonSociale[0] . "'>" . $raisonSociale[0] . "</option>";
@@ -115,7 +113,7 @@ $dataMotifs = json_encode($dataMotifs);
                     <select name="dossier_impaye" id="dossier_impaye">
                         <option value="">Tous</option>
                         <?php
-                        $requete = "SELECT numDossierImpaye FROM REMISE WHERE numDossierImpaye IS NOT NULL";
+                        $requete = "SELECT numDossierImpaye FROM REMISE r, CLIENT c WHERE numDossierImpaye IS NOT NULL AND c.siren = r.siren ORDER BY numDossierImpaye ASC;";
                         $resultat = $cnx->prepare($requete);
                         $resultat->execute();
                         $dossiers = $resultat->fetchAll();
@@ -125,7 +123,13 @@ $dataMotifs = json_encode($dataMotifs);
                         ?>
                     </select>
                 </div>
-                <button type="submit">Valider</button>
+                <?php
+                if (!empty($_POST['siren']) || !empty($_POST['rs']) || !empty($_POST['dossier_impaye']) || !empty($_POST['debut']) || !empty($_POST['fin'])) {
+                    echo "<button type='submit'>Réinitialiser</button>";
+                } else {
+                    echo "<button type='submit'>Rechercher</button>";
+                }
+                ?>
             </form>
             <?php
             if (!empty($_POST['siren'])) {
@@ -135,8 +139,8 @@ $dataMotifs = json_encode($dataMotifs);
                     $resultat->bindParam(':siren', $_POST['siren']);
                     $resultat->bindParam(':numDossierImpaye', $_POST['dossier_impaye']);
                 } elseif (!empty($_POST['debut']) || !empty($_POST['fin'])) {
-                    $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $date;
-                    $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $d_fin;
+                    $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $debut_d;
+                    $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $fin_d;
                     $requete = $requetes["select_po_impaye_siren_date"];
                     $resultat = $cnx->prepare($requete);
                     $resultat->bindParam(':siren', $_POST['siren']);
@@ -154,8 +158,8 @@ $dataMotifs = json_encode($dataMotifs);
                     $resultat->bindParam(':rs', $_POST['rs']);
                     $resultat->bindParam(':numDossierImpaye', $_POST['dossier_impaye']);
                 } elseif (!empty($_POST['debut']) || !empty($_POST['fin'])) {
-                    $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $date;
-                    $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $d_fin;
+                    $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $debut_d;
+                    $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $fin_d;
                     $requete = $requetes["select_po_impaye_rs_date"];
                     $resultat = $cnx->prepare($requete);
                     $resultat->bindParam(':rs', $_POST['rs']);
@@ -171,8 +175,8 @@ $dataMotifs = json_encode($dataMotifs);
                 $resultat = $cnx->prepare($requete);
                 $resultat->bindParam(':numDossierImpaye', $_POST['dossier_impaye']);
             } elseif (!empty($_POST['debut']) || !empty($_POST['fin'])) {
-                $d_debut = format_date((!empty($_POST['debut'])) ? $_POST['debut'] : $date);
-                $d_fin = format_date((!empty($_POST['fin'])) ? $_POST['fin'] : $d_fin);
+                $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $debut_d;
+                $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $fin_d;
                 $requete = $requetes["select_po_impaye_date"];
                 $resultat = $cnx->prepare($requete);
                 $resultat->bindParam(':debut', $d_fin);
@@ -224,7 +228,7 @@ $dataMotifs = json_encode($dataMotifs);
                         echo "<tr>";
                         echo "<td>$ligne->siren</td>";
                         echo "<td>$ligne->devise</td>";
-                        echo "<td class='" . checkNumber($ligne->montantTotal) . "'>$ligne->montantTotal</td>";
+                        echo "<td class='" . checkNumber($ligne->montant) . "'>$ligne->montant</td>";
                         echo "<td><button class='modal-btn modal-trigger-impaye' data-row='$ligne->siren'>...</button></td>";
                         echo "</tr>";
                     }

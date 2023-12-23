@@ -231,7 +231,7 @@ $requetes = array(
          REMISE r
     WHERE c.siren = r.siren
       AND DATE(r.dateRemise) = :treso
-    GROUP BY numRemise;",
+    GROUP BY numRemise, c.siren;",
     // Requête pour la récupération de la trésorerie de tous les clients selon une date
 
     "select_client_impaye_dossier" => "
@@ -506,7 +506,7 @@ $requetes = array(
            devise,
            (SELECT SUM(r2.montant)
              FROM REMISE r2
-             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montantTotal
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
     FROM REMISE r,
          CLIENT c
     WHERE r.siren = c.siren
@@ -517,14 +517,10 @@ $requetes = array(
     "select_po_impaye_date" => "
     SELECT c.siren,
            raisonSociale,
-           numDossierImpaye,
-           dateTransaction,
-           dateRemise,
-           numCarte,
-           reseau,
            devise,
-           montant,
-           libelle
+           (SELECT SUM(r2.montant)
+             FROM REMISE r2
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
     FROM REMISE r,
          CLIENT c,
          MOTIFS_IMPAYES m
@@ -532,25 +528,17 @@ $requetes = array(
       AND m.code = r.code
       AND r.montant < 0
       AND dateRemise BETWEEN :debut AND :fin
-    GROUP BY numDossierImpaye,
-            dateTransaction,
-            dateRemise,
-            montant,
-            libelle,
+    GROUP BY montant,
             c.siren;",
     // Requête pour la récupération des données des impayés de tous les clients selon deux dates
 
     "select_po_impaye_siren_dossier" => "
     SELECT c.siren,
            raisonSociale,
-           numDossierImpaye,
-           dateTransaction,
-           dateRemise,
-           numCarte,
-           reseau,
            devise,
-           montant,
-           libelle
+           (SELECT SUM(r2.montant)
+             FROM REMISE r2
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
     FROM REMISE r,
          CLIENT c,
          MOTIFS_IMPAYES m
@@ -559,25 +547,17 @@ $requetes = array(
       AND r.montant < 0
       AND c.siren = :siren
       AND numDossierImpaye = :numDossierImpaye
-    GROUP BY numDossierImpaye,
-             dateTransaction,
-             dateRemise,
-             montant,
-             libelle,
+    GROUP BY montant,
              c.siren;",
     // Requête pour la récupération des données d'un impayé du client selon son siren et le numéro du dossier
 
     "select_po_impaye_siren_date" => "
     SELECT c.siren,
            raisonSociale,
-           numDossierImpaye,
-           dateTransaction,
-           dateRemise,
-           numCarte,
-           reseau,
            devise,
-           montant,
-           libelle
+           (SELECT SUM(r2.montant)
+             FROM REMISE r2
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
     FROM REMISE r,
         CLIENT c,
         MOTIFS_IMPAYES m
@@ -586,25 +566,17 @@ $requetes = array(
       AND r.montant < 0
       AND c.siren = :siren
       AND dateRemise BETWEEN :debut AND :fin
-    GROUP BY numDossierImpaye,
-             dateTransaction,
-             dateRemise,
-             montant,
-             libelle,
-             c.siren;",
+    GROUP BY c.siren,
+             montant;",
     // Requête pour la récupération des données des impayés du client selon son siren et deux dates
 
     "select_po_impaye_siren" => "
     SELECT c.siren,
            raisonSociale,
-           numDossierImpaye,
-           dateTransaction,
-           dateRemise,
-           numCarte,
-           reseau,
            devise,
-           montant,
-           libelle
+           (SELECT SUM(r2.montant)
+             FROM REMISE r2
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
     FROM REMISE r,
          CLIENT c,
          MOTIFS_IMPAYES m
@@ -612,25 +584,17 @@ $requetes = array(
       AND m.code = r.code
       AND r.montant < 0
       AND c.siren = :siren
-    GROUP BY numDossierImpaye,
-             dateTransaction,
-             dateRemise,
-             montant,
-             libelle,
+    GROUP BY montant,
              c.siren;",
     // Requête pour la récupération des données des impayés du client selon son siren
 
     "select_po_impaye_rs_dossier" => "
     SELECT c.siren,
            raisonSociale,
-           numDossierImpaye,
-           dateTransaction,
-           dateRemise,
-           numCarte,
-           reseau,
            devise,
-           montant,
-           libelle
+           (SELECT SUM(r2.montant)
+             FROM REMISE r2
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
     FROM REMISE r,
          CLIENT c,
          MOTIFS_IMPAYES m
@@ -639,25 +603,17 @@ $requetes = array(
       AND r.montant < 0
       AND raisonSociale = :rs
       AND numDossierImpaye = :numDossierImpaye
-    GROUP BY numDossierImpaye,
-             dateTransaction,
-             dateRemise,
-             montant,
-             libelle,
+    GROUP BY montant,
              c.siren;",
     // Requête pour la récupération des données d'un impayé du client selon sa raison sociale et le numéro du dossier
 
     "select_po_impaye_rs_date" => "
     SELECT c.siren,
            raisonSociale,
-           numDossierImpaye,
-           dateTransaction,
-           dateRemise,
-           numCarte,
-           reseau,
            devise,
-           montant,
-           libelle
+           (SELECT SUM(r2.montant)
+             FROM REMISE r2
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
     FROM REMISE r,
         CLIENT c,
         MOTIFS_IMPAYES m
@@ -666,25 +622,17 @@ $requetes = array(
       AND r.montant < 0
       AND raisonSociale = :rs
       AND dateRemise BETWEEN :debut AND :fin
-    GROUP BY numDossierImpaye,
-             dateTransaction,
-             dateRemise,
-             montant,
-             libelle,
+    GROUP BY montant,
              c.siren;",
     // Requête pour la récupération des données des impayés du client selon sa raison sociale et deux dates
 
     "select_po_impaye_rs" => "
     SELECT c.siren,
            raisonSociale,
-           numDossierImpaye,
-           dateTransaction,
-           dateRemise,
-           numCarte,
-           reseau,
            devise,
-           montant,
-           libelle
+           (SELECT SUM(r2.montant)
+             FROM REMISE r2
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
     FROM REMISE r,
         CLIENT c,
         MOTIFS_IMPAYES m
@@ -692,25 +640,17 @@ $requetes = array(
       AND m.code = r.code
       AND r.montant < 0
       AND raisonSociale = :rs
-    GROUP BY numDossierImpaye,
-             dateTransaction,
-             dateRemise,
-             montant,
-             libelle,
+    GROUP BY montant,
              c.siren;",
     // Requête pour la récupération des données des impayés du client selon sa raison sociale
 
     "select_po_impaye_dossier" => "
     SELECT c.siren,
            raisonSociale,
-           numDossierImpaye,
-           dateTransaction,
-           dateRemise,
-           numCarte,
-           reseau,
            devise,
-           montant,
-           libelle
+           (SELECT SUM(r2.montant)
+             FROM REMISE r2
+             WHERE r2.montant < 0 AND r2.siren = c.siren) AS montant
     FROM REMISE r,
         CLIENT c,
         MOTIFS_IMPAYES m
@@ -718,11 +658,7 @@ $requetes = array(
       AND m.code = r.code
       AND r.montant < 0
       AND numDossierImpaye = :numDossierImpaye
-    GROUP BY numDossierImpaye,
-             dateTransaction,
-             dateRemise,
-             montant,
-             libelle,
+    GROUP BY montant,
              c.siren;",
     // Requête pour la récupération des données d'un impayé du client selon le numéro du dossier
 
@@ -749,6 +685,43 @@ $requetes = array(
     WHERE c.siren = r.siren
       AND m.code = r.code
       AND r.montant < 0
-      AND c.siren = :siren;"
+      AND c.siren = :siren;",
     // Requête pour la récupération des données des impayés d'un client en détail
+
+    "select_all_siren" => "
+    SELECT siren 
+    FROM CLIENT c, 
+         UTILISATEUR u 
+    WHERE c.idUser = u.idUser 
+      AND password IS NOT NULL 
+      AND suppr != 2 
+    ORDER BY siren",
+    // Requête pour la récupération des raisons sociales de tous les clients actifs
+
+    "select_all_rs" => "
+    SELECT raisonSociale
+    FROM CLIENT c,
+         UTILISATEUR u
+    WHERE c.idUser = u.idUser
+      AND password IS NOT NULL
+      AND suppr != 2
+    ORDER BY raisonSociale",
+    // Requête pour la récupération des raisons sociales de tous les clients actifs
+
+    "select_all_num_remise" => "
+    SELECT DISTINCT numRemise 
+    FROM REMISE r, 
+         CLIENT c 
+    WHERE r.siren = c.siren 
+      AND suppr != 2
+    ORDER BY CAST(numRemise AS UNSIGNED);",
+    // Requête pour la récupération des numéros de remise de tous les clients actifs
+
+    "select_all_num_dossier" => "
+    SELECT numDossierImpaye 
+    FROM REMISE r, 
+         CLIENT c 
+    WHERE numDossierImpaye IS NOT NULL 
+      AND c.siren = r.siren 
+    ORDER BY numDossierImpaye ASC;"
 );

@@ -23,15 +23,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Supprimer le client et changer le mot de passe
         supprimerClient($idUser, $login, $mail);
-        echo "yes, login: " . $login;
+        echo "<script>alert('Compte client supprimé.')</script>";
+        // Le message d'alert ne s'affiche pas avec $login, comment faire ? Il affiche plutôt 'Compte client supprimé.' sans le nom du client
+        // J'ai essayé avec $raisonSociale, $mail, $idUser, mais ça ne fonctionne pas non plus
+        // Comment convertir le $login en string ?
     } elseif (isset($_POST['no'])) {
         // Annuler la suppression
         annulerSuppression($idUser);
-        echo "no, idUser: " . $idUser;
+        echo "<script>alert('Compte client non supprimé.')</script>";
     }
-
-    // Rediriger vers la page des marchands
-    header("Location: marchands.php");
+    echo "<script>window.location.replace('./');</script>";
 }
 
 // Fonction pour supprimer le client avec changement de mot de passe
@@ -98,13 +99,14 @@ function sendConfirmationEmail($to, $username) {
     $mail->isHTML(true);
     $mail->Subject = 'Confirmation de Suppression';
     $mail->Body = "Votre compte a été supprimé";
+    $mail->CharSet = 'UTF-8';
 
     try { // Tenter d'envoyer le mail, si le mail est envoyé avec succès, afficher un message
         $mail->send();
         echo "<script>alert('Confirmation de Suppression envoyé avec succès.')</script>";
-        echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>";
+        echo "<script>window.location.replace('./');</script>";
     } catch (Exception $e) { // Si une erreur se produit lors de l'envoi du mail, afficher un message d'erreur
         echo "<script>alert('Erreur lors de l\'envoi du mail : ' . $mail->ErrorInfo)</script>";
-        echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>";
+        echo "<script>window.location.replace('./');</script>";
     }
 }

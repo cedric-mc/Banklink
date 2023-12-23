@@ -61,6 +61,6 @@ function getColorByAmountRange($montant) {
 
 $req = $cnx->prepare("SELECT MIN(dateRemise) FROM REMISE;");
 $req->execute();
-$date = $req->fetchColumn();
-$d_fin = date("Y-m-d");
+$debut_d = $req->fetchColumn();
+$fin_d = date("Y-m-d");
 $req->closeCursor();

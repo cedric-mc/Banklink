@@ -47,8 +47,7 @@ include("../includes/requetes.php");
                     <select name="siren" id="siren">
                         <option value="">Tous</option>
                         <?php
-                        $requete = "SELECT siren FROM CLIENT c, UTILISATEUR u WHERE c.idUser = u.idUser AND password IS NOT NULL AND suppr != 2";
-                        $resultat = $cnx->query($requete);
+                        $resultat = $cnx->query($requetes["select_all_siren"]);
                         $sirens = $resultat->fetchAll();
                         foreach ($sirens as $siren) {
                             echo "<option value='" . $siren[0] . "'>" . $siren[0] . "</option>";
@@ -61,8 +60,7 @@ include("../includes/requetes.php");
                     <select name="rs" id="rs">
                         <option value="">Tous</option>
                         <?php
-                        $requete = "SELECT raisonSociale FROM CLIENT c, UTILISATEUR u WHERE c.idUser = u.idUser AND password IS NOT NULL AND suppr != 2";
-                        $resultat = $cnx->query($requete);
+                        $resultat = $cnx->query($requetes["select_all_rs"]);
                         $rs = $resultat->fetchAll();
                         foreach ($rs as $raisonSociale) {
                             echo "<option value='" . $raisonSociale[0] . "'>" . $raisonSociale[0] . "</option>";
@@ -83,8 +81,8 @@ include("../includes/requetes.php");
                     <select name="n_remise" id="n_remise">
                         <option value="">Tous</option>
                         <?php
-                        $requete = "SELECT DISTINCT numRemise FROM REMISE r, CLIENT c WHERE r.siren = c.siren AND suppr != 2;";
-                        $resultat = $cnx->prepare($requete);
+                        $requete = "SELECT DISTINCT numRemise FROM REMISE r, CLIENT c WHERE r.siren = c.siren AND suppr != 2 ORDER BY CAST(numRemise AS UNSIGNED);";
+                        $resultat = $cnx->prepare($requetes["select_all_num_remise"]);
                         $resultat->execute();
                         $remises = $resultat->fetchAll();
                         foreach ($remises as $remise) {
@@ -93,7 +91,13 @@ include("../includes/requetes.php");
                         ?>
                     </select>
                 </div>
-                <button type="submit">Valider</button>
+                <?php
+                if (!empty($_POST['siren']) || !empty($_POST['rs']) || !empty($_POST['n_remise']) || !empty($_POST['debut']) || !empty($_POST['fin'])) {
+                    echo "<button type='submit'>Réinitialiser</button>";
+                } else {
+                    echo "<button type='submit'>Rechercher</button>";
+                }
+                ?>
             </form>
             <?php
             if (!empty($_POST['siren'])) {
@@ -103,8 +107,8 @@ include("../includes/requetes.php");
                     $resultat->bindParam(':siren', $_POST['siren']);
                     $resultat->bindParam(':numRemise', $_POST['n_remise']);
                 } elseif (!empty($_POST['debut']) || !empty($_POST['fin'])) {
-                    $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $date;
-                    $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $d_fin;
+                    $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $debut_d;
+                    $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $fin_d;
                     $requete = $requetes["select_po_remise_siren_date"];
                     $resultat = $cnx->prepare($requete);
                     $resultat->bindParam(':siren', $_POST['siren']);
@@ -122,8 +126,8 @@ include("../includes/requetes.php");
                     $resultat->bindParam(':rs', $_POST['rs']);
                     $resultat->bindParam(':numRemise', $_POST['n_remise']);
                 } elseif (!empty($_POST['debut']) || !empty($_POST['fin'])) {
-                    $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $date;
-                    $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $d_fin;
+                    $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $debut_d;
+                    $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $fin_d;
                     $requete = $requetes["select_po_remise_rs_date"];
                     $resultat = $cnx->prepare($requete);
                     $resultat->bindParam(':rs', $_POST['rs']);
@@ -139,8 +143,8 @@ include("../includes/requetes.php");
                 $resultat = $cnx->prepare($requete);
                 $resultat->bindParam(':numRemise', $_POST['n_remise']);
             } elseif (!empty($_POST['debut']) || !empty($_POST['fin'])) {
-                $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $date;
-                $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $d_fin;
+                $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $debut_d;
+                $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $fin_d;
                 $requete = $requetes["select_po_remise_date"];
                 $resultat = $cnx->prepare($requete);
                 $resultat->bindParam(':debut', $d_debut);

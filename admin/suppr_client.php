@@ -10,8 +10,9 @@ if (!empty($_GET['id'])) {
     $stmt->bindParam(':idUser', $_GET['id'], PDO::PARAM_INT);
     $stmt->execute();
 
-    // Rediriger vers la page d'accueil
-    header("Location: ./?etat=suppr");
+    // Affichage d'un message de confirmation de la suppression et redirection vers la page d'accueil
+    echo "<script>alert('Client supprimé avec succès ! Attente de confirmation du Product-Owner.');</script>";
+    echo "<script>window.location.replace('./');</script>";
     exit();
 }
 header("Location: ./");

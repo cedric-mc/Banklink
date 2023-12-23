@@ -7,8 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // Fonction pour envoyer un email de confirmation pour l'inscription au client
-function sendConfirmationEmail($to, $username)
-{
+function sendConfirmationEmail($to, $username) {
     include("../includes/conf.php"); // Inclure le fichier de configuration de la base de données contenant la configuration pour le Serveur SMTP et le lien vers la page de confirmation
 
     // Créer un nouvel objet PHPMailer
@@ -103,10 +102,8 @@ function sendConfirmationEmail($to, $username)
     try { // Tenter d'envoyer le mail, si le mail est envoyé avec succès, afficher un message
         $mail->send();
         echo "<script>alert('Le mail de confirmation a été envoyé avec succès.')</script>";
-        echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>";
     } catch (Exception $e) { // Si une erreur se produit lors de l'envoi du mail, afficher un message d'erreur
         echo "<script>alert('Erreur lors de l\'envoi du mail : ' . $mail->ErrorInfo)</script>";
-        echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>";
     }
 }
 
@@ -172,13 +169,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Traiter l'action d'acceptation du client temporaire
         accepterClientTemp($siren, $raisonSociale, $login, $devise, $carte, $reseau, $mail);
-        echo "<script>alert('Le client temporaire $siren a été traité avec succès.')</script>";
+        echo "<script>alert('Le client temporaire a été traité avec succès.')</script>";
     } elseif (isset($_POST['no'])) {
         $siren = $_POST['siren'];
         // Traiter l'action de refus du client temporaire
         refuserClientTemp($siren);
-        echo "<script>alert('Le client temporaire $siren n'a pas été traité.')</script>";
+        echo "<script>alert('Le client temporaire n\'a pas été traité.')</script>";
     }
-    echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>"; // Rediriger vers la page d'accueil
-    header("Location: marchands.php");
+    echo "<script>window.location.replace('./');</script>";
+    exit();
 }

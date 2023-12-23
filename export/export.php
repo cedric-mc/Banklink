@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nomsColonnes = array("N° SIREN", "Raison Sociale", "N° Remise", "Date Traitement", "Nbre Transactions", "Devise", "Montant Total");
     } elseif ($table == 'impaye') {
         $title .= "LISTE DES IMPAYÉS";
-        $nomsColonnes = array("N° SIREN", "Raison Sociale", "Date Vente", "Date Remise", "N° Carte", "Réseau", "N° Dossier Impayé", "Devise", "Montant", "Libellé Impayé");
+        $nomsColonnes = array("N° SIREN", "Raison Sociale", "Devise", "Montant");
     } elseif ($table == 'sub_remise') {
         $title .= "LISTE DES TRANSACTIONS DE LA REMISE N° $_POST[numRemise]";
         $nomsColonnes = array("N° SIREN", "Date Vente", "N° Carte", "Réseau", "N° Autorisation", "Devise", "Montant");

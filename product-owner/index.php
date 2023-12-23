@@ -47,8 +47,7 @@ include("../includes/functions.php");
                     <select name="siren" id="siren">
                         <option value="">Tous</option>
                         <?php
-                        $requete = "SELECT siren FROM CLIENT c, UTILISATEUR u WHERE c.idUser = u.idUser AND password IS NOT NULL AND suppr != 2";
-                        $resultat = $cnx->query($requete);
+                        $resultat = $cnx->query($requetes["select_all_siren"]);
                         $sirens = $resultat->fetchAll();
                         foreach ($sirens as $siren) {
                             echo "<option value='" . $siren[0] . "'>" . $siren[0] . "</option>";
@@ -61,8 +60,7 @@ include("../includes/functions.php");
                     <select name="rs" id="rs">
                         <option value="">Tous</option>
                         <?php
-                        $requete = "SELECT raisonSociale FROM CLIENT c, UTILISATEUR u WHERE c.idUser = u.idUser AND password IS NOT NULL AND suppr != 2";
-                        $resultat = $cnx->query($requete);
+                        $resultat = $cnx->query($requetes["select_all_rs"]);
                         $rs = $resultat->fetchAll();
                         foreach ($rs as $raisonSociale) {
                             echo "<option value='" . $raisonSociale[0] . "'>" . $raisonSociale[0] . "</option>";
@@ -74,7 +72,13 @@ include("../includes/functions.php");
                     <label for="treso">Date :</label>
                     <input type="date" id="treso" name="treso">
                 </div>
-                <button type="submit">Valider</button>
+                <?php
+                if (!empty($_POST['siren']) || !empty($_POST['rs']) || !empty($_POST['treso'])) {
+                    echo "<button type='submit'>Réinitialiser</button>";
+                } else {
+                    echo "<button type='submit'>Rechercher</button>";
+                }
+                ?>
             </form>
             <?php
             if (!empty($_POST['siren'])) {

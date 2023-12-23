@@ -61,12 +61,6 @@ include("../includes/requetes.php");
                         <span class="perso-data"><?php echo $_SESSION['mail']; ?></span>
                     </div>
                     <div class="mini-info">
-                        <span class="info">N° et Réseau de la Carte : &nbsp;</span>
-                        <span class="perso-data cache">
-                            <?php echo masquerNumeroCarte($_SESSION['numCarte']) . " - " . $_SESSION['reseau'] ?>
-                        </span>
-                    </div>
-                    <div class="mini-info">
                         <span class="info">Devise : &nbsp;</span>
                         <span class="perso-data"><?php echo $_SESSION['devise']; ?></span>
                     </div>

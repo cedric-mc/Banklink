@@ -65,7 +65,13 @@ include("../includes/functions.php");
                         ?>
                     </select>
                 </div>
-                <button type="submit">Valider</button>
+                <?php
+                if (!empty($_POST['n_remise']) || !empty($_POST['debut']) || !empty($_POST['fin'])) {
+                    echo "<button type='submit'>Réinitialiser</button>";
+                } else {
+                    echo "<button type='submit'>Rechercher</button>";
+                }
+                ?>
             </form>
             <?php
             if (!empty($_POST['n_remise'])) {
@@ -74,8 +80,8 @@ include("../includes/functions.php");
                 $resultat->bindParam(':siren', $_SESSION['siren']);
                 $resultat->bindParam(':remise', $_POST['n_remise']);
             } elseif (!empty($_POST['debut']) || !empty($_POST['fin'])) {
-                $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $date;
-                $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $d_fin;
+                $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $debut_d;
+                $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $fin_d;
                 $requete = $requetes["select_client_remise_date"];
                 $resultat = $cnx->prepare($requete);
                 $resultat->bindParam(':siren', $_SESSION['siren']);

@@ -125,7 +125,13 @@ $data = json_encode($data);
                 <label for="treso">Date :</label>
                 <input type="date" id="treso" name="treso">
             </div>
-            <button type="submit">Valider</button>
+            <?php
+            if (!empty($_POST['treso'])) {
+                echo "<button type='submit'>Réinitialiser</button>";
+            } else {
+                echo "<button type='submit'>Rechercher</button>";
+            }
+            ?>
         </form>
         <?php
         if (!empty($_POST['treso'])) {
@@ -161,7 +167,6 @@ $data = json_encode($data);
                     <option value="xls">Excel</option>
                     <option value="pdf">PDF</option>
                 </select>
-<!--                <button type="submit">Exporter</button>-->
             </form>
         </div>
         <!-- Formulaire d'exportation -->

@@ -56,9 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errorMessages[] = "L'Email ($email) est déjà utilisé.";
             }
         }
-        // Afficher les messages d'erreur
-        echo "<script>alert('Erreur lors de la création du compte client : '" . implode("<br> ", $errorMessages) . ");</script>";
-        echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>"; // Rediriger vers la page d'accueil
+        echo "<script>alert('Erreur lors de la création du compte client')</script>";
+        echo "<script>window.location.replace('./');</script>";
         exit();
     } else { // Sinon, insérer les données dans la table CLIENT_TEMP
         // Préparer la requête d'insertion
@@ -76,11 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Exécuter la requête d'insertion, afficher un message de succès ou d'erreur
         if ($stmtInsert->execute()) {
-            header("Location: ./?etat=success");
+            echo "<script>alert('Le compte client a été créé avec succès. Attente de confirmation du Product-Owner.');</script>";
+            echo "<script>window.location.replace('./');</script>";
             exit();
         } else {
             echo "<script>alert('Erreur lors de la création du compte client : " . $stmtInsert->errorInfo() . "')</script>";
-            echo "<script>window.setTimeout(function() { window.location.href = './'; }, 1000);</script>";
+            echo "<script>window.location.replace('./');</script>";
             exit();
         }
         // Fermer la requête d'insertion

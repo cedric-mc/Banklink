@@ -5,16 +5,6 @@ if (empty($_SESSION["idUser"]) || $_SESSION["type"] != "admin") {
     header("Location: ../");
     exit();
 }
-// Vérifier si le formulaire a été soumis
-if (empty($_GET["etat"])) {
-    if ($_GET["etat"] == "create") {
-        echo "<script>alert('Le compte a bien été créé !');</script>";
-    } elseif ($_GET["etat"] == "suppr") {
-        echo "<script>alert('Le compte a bien été supprimé !');</script>";
-    }
-    header("Location: ./");
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html>

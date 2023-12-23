@@ -90,7 +90,13 @@ $dataMotifs = json_encode($dataMotifs);
                         ?>
                     </select>
                 </div>
-                <button type="submit">Valider</button>
+                <?php
+                if (!empty($_POST['dossier_impaye']) || !empty($_POST['debut']) || !empty($_POST['fin'])) {
+                    echo "<button type='submit'>Réinitialiser</button>";
+                } else {
+                    echo "<button type='submit'>Rechercher</button>";
+                }
+                ?>
             </form>
             <?php
             if (!empty($_POST['dossier_impaye'])) {
@@ -99,8 +105,8 @@ $dataMotifs = json_encode($dataMotifs);
                 $resultat->bindParam(':siren', $_SESSION['siren']);
                 $resultat->bindParam(':numDossierImpaye', $_POST['dossier_impaye']);
             } elseif (!empty($_POST['debut']) || !empty($_POST['fin'])) {
-                $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $date;
-                $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $d_fin;
+                $d_debut = (!empty($_POST['debut'])) ? $_POST['debut'] : $debut_d;
+                $d_fin = (!empty($_POST['fin'])) ? $_POST['fin'] : $fin_d;
                 $requete = $requetes["select_client_impaye_date"];
                 $resultat = $cnx->prepare($requete);
                 $resultat->bindParam(':siren', $_SESSION['siren']);
@@ -171,7 +177,7 @@ $dataMotifs = json_encode($dataMotifs);
                         $color = getColorByAmountRange($ligne->montant);
 
                         // Appliquer la couleur à la cellule correspondante
-                        echo "<td style='color: $color;'>$ligne->montant</td>";
+                        echo "<td class='impayeMontant' style='color: $color;'>$ligne->montant</td>";
 
                         if (empty($ligne->libelle)) {
                             echo "<td class='form-details'>raison non communiquée, contactez la banque du client</td>";

@@ -28,13 +28,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':login', $login, PDO::PARAM_STR);
 
     if ($stmt->execute()) {
-        $resultat = $cnx->query("SELECT u.idUser, mail, type, siren FROM UTILISATEUR u, CLIENT c WHERE login = '$login' AND u.idUser = c.idUser;");
+        $resultat = $cnx->query("SELECT u.idUser, mail, type, siren, raisonSociale, devise, numCarte, reseau FROM UTILISATEUR u, CLIENT c WHERE login = '$login' AND u.idUser = c.idUser;");
         $resultat2 = $resultat->fetch(PDO::FETCH_ASSOC);
         $_SESSION['idUser'] = $resultat2['idUser'];
         $_SESSION['login'] = $login;
         $_SESSION['type'] = $resultat2['type'];
         $_SESSION['mail'] = $resultat2['mail'];
-        $_SESSION['siren'] = $resultat2['siren'];
+        $_SESSION['siren'] = $result['siren'];
+        $_SESSION['raisonSociale'] = $result['raisonSociale'];
+        $_SESSION['devise'] = $result['devise'];
+        $_SESSION['numCarte'] = $result['numCarte'];
+        $_SESSION['reseau'] = $result['reseau'];
         echo "<script>alert('Le mot de passe a été mis à jour avec succès. Votre compte $login a été créer avec succès.');</script>";
         echo "<script>window.setTimeout(function() { window.location.href = 'profil.php'; }, 1000);</script>";
     } else {
