@@ -13,6 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $login = $_POST["login"];
     $email = $_POST["email"];
 
+    session_start();
+    if (empty($_SESSION["idUser"]) || $_SESSION["type"] != "admin") {
+        header("Location: ../");
+        exit();
+    }
+
     // Initialiser un tableau pour stocker les messages d'erreur
     $errorMessages = array();
 
@@ -56,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errorMessages[] = "L'Email ($email) est déjà utilisé.";
             }
         }
+        echo 1;
         echo "<script>alert('Erreur lors de la création du compte client')</script>";
         echo "<script>window.location.replace('./');</script>";
         exit();
@@ -72,22 +79,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtInsert->bindParam(":reseau", $reseau);
         $stmtInsert->bindParam(":login", $login);
         $stmtInsert->bindParam(":email", $email);
-
-        // Exécuter la requête d'insertion, afficher un message de succès ou d'erreur
-        if ($stmtInsert->execute()) {
-            echo "<script>alert('Le compte client a été créé avec succès. Attente de confirmation du Product-Owner.');</script>";
+        // Exécuter la requête
+        $stmtInsert->execute();
+        // Vérifier si l'insertion a réussi
+        if ($stmtInsert->rowCount() > 0) {
+            echo 0;
+            echo "<script>alert('Compte client créé avec succès')</script>";
             echo "<script>window.location.replace('./');</script>";
             exit();
         } else {
-            echo "<script>alert('Erreur lors de la création du compte client : " . $stmtInsert->errorInfo() . "')</script>";
+            echo 1;
+            echo "<script>alert('Erreur lors de la création du compte client')</script>";
             echo "<script>window.location.replace('./');</script>";
             exit();
         }
-        // Fermer la requête d'insertion
-        $stmtInsert->closeCursor();
     }
-
-    // Fermer la requête de vérification et la connexion
-    $stmtCheck->closeCursor();
-    $cnx = null;
 }
+header("Location: ./");

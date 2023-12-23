@@ -246,7 +246,7 @@ $data = json_encode($data);
         var data = <?php echo $data; ?>;
         chartInstance = Highcharts.chart('myChart', {
             title: {
-                text: 'Évolution de la Trésorerie Global'
+                text: 'Évolution de la Trésorerie Global<br>en fonction des impayés'
             },
             subtitle: {
                 text: 'Source: <a href="https://cedric-mc.github.io/Banklink/" target="_blank">BankLink</a>'

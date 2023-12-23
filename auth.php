@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['error'] = ""; // Variable contenant l'erreur à afficher
+$_SESSION['error'] = 0; // Variable contenant l'erreur à afficher
 if (isset($_SESSION['lockout_time']) && $_SESSION['lockout_time'] > time()) { // Si la temps de lockout n'est pas dépassé
     $_SESSION['error'] = 5;
     header('Location: ./');
@@ -79,7 +79,7 @@ try {
         }
     } else { // Si le login est incorrect
         $_SESSION['error'] = 2;
-        // header('Location: ./');
+        header('Location: ./');
         exit;
     }
 } catch (PDOException $e) {

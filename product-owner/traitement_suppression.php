@@ -98,7 +98,9 @@ function sendConfirmationEmail($to, $username) {
     // Configurer le contenu du mail
     $mail->isHTML(true);
     $mail->Subject = 'Confirmation de Suppression';
-    $mail->Body = "Votre compte a été supprimé";
+    $mail->Body = "Bonjour,<br>
+    J'ai le regret de vous annoncé que votre compte Bankink a été supprimé. De ce fait vous n'aurez plus accès à votre compte.<br>
+    Cordialement,<br>Banklink";
     $mail->CharSet = 'UTF-8';
 
     try { // Tenter d'envoyer le mail, si le mail est envoyé avec succès, afficher un message

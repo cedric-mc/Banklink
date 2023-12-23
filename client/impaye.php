@@ -156,7 +156,7 @@ $dataMotifs = json_encode($dataMotifs);
                         <th>Réseau</th>
                         <th>N° Dossier Impayé</th>
                         <th>Devise</th>
-                        <th>Montant</th>
+                        <th class="clickable">Montant</th>
                         <th>Libellé Impayé</th>
                     </tr>
                 </thead>

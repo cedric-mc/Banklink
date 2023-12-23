@@ -54,7 +54,7 @@ include("../includes/requetes.php");
                     </div>
                     <div class="mini-info">
                         <span class="info">N° de SIREN : &nbsp;</span>
-                        <span class="perso-data"><?php echo spacedText($_SESSION['siren']); ?></span>
+                        <span class="perso-data"><?php echo $_SESSION['siren']; ?></span>
                     </div>
                     <div class="mini-info">
                         <span class="info">E-mail : &nbsp;</span>

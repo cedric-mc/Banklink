@@ -37,8 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['siren'] = $result['siren'];
         $_SESSION['raisonSociale'] = $result['raisonSociale'];
         $_SESSION['devise'] = $result['devise'];
-        $_SESSION['numCarte'] = $result['numCarte'];
-        $_SESSION['reseau'] = $result['reseau'];
         echo "<script>alert('Le mot de passe a été mis à jour avec succès. Votre compte $login a été créer avec succès.');</script>";
         echo "<script>window.setTimeout(function() { window.location.href = 'profil.php'; }, 1000);</script>";
     } else {
