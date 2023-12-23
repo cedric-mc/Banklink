@@ -34,6 +34,8 @@ Commerçant | `nike` | `nike`
 Commerçant | Login | Mot de Passe
 -----------|-------|-------------
 TotalEnergies | `total` | `total`
+Test1 | `test1` | `test1`
+Test2 | `test2` | `test2`
 
 ## Équipe
 
