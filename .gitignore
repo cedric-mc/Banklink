@@ -1,5 +1,4 @@
 conf.php
 tmp/
 vendor/
-!vendor/autoload.php
-!vendor/composer/
+composer.lock

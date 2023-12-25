@@ -21,7 +21,7 @@ Commerçant | Uniquement consulter ses données | client
 - MySQL 5.7 ou supérieur
 - Composer
 
-### Installation
+### Installation du projet
 
 1. Cloner le projet
 2. Installer les dépendances avec Composer
@@ -30,7 +30,9 @@ Commerçant | Uniquement consulter ses données | client
 composer install
 ```
 
-3. Importer le fichier SQL `banklink.sql` dans votre base de données
+3. Importer le fichier SQL `banklink.sql` dans votre base de données :
+
+La base de données ne doit pas contenir des tables avec les noms suivants : `UTILISATEUR`, `CLIENT`, `REMISE`, `MOTIFS_IMPAYES`, `CLIENT_TEMP`
 
 ## Utilisation
 
