@@ -24,7 +24,7 @@ Commerçant | Uniquement consulter ses données | client
 ### Installation du projet
 
 1. Cloner le projet
-2. Installer les dépendances avec Composer
+2. Installer les dépendances avec la commande :
 
 ```bash
 composer install
