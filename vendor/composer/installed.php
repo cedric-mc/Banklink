@@ -3,7 +3,7 @@
         'name' => 'cedri/banklink',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '882f718b8c882109adf2c0d1716b4d8de2d59b0a',
+        'reference' => '9c5444c0e534aec9a67628dba2489447c09c88a2',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'cedri/banklink' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '882f718b8c882109adf2c0d1716b4d8de2d59b0a',
+            'reference' => '9c5444c0e534aec9a67628dba2489447c09c88a2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

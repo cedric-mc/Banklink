@@ -12,6 +12,26 @@ Admin | Activer la création ou suppression d'un compte | admin
 PO | Valider la création ou suppression d'un compte, Consulter les données de tous les clients | product-owner
 Commerçant | Uniquement consulter ses données | client
 
+## Installation
+
+### Prérequis
+
+- Serveur web (Apache, Nginx, ...)
+- PHP 7.0 ou supérieur
+- MySQL 5.7 ou supérieur
+- Composer
+
+### Installation
+
+1. Cloner le projet
+2. Installer les dépendances avec Composer
+
+```bash
+composer install
+```
+
+3. Importer le fichier SQL `banklink.sql` dans votre base de données
+
 ## Utilisation
 
 ### Guide utilisateur
@@ -29,7 +49,7 @@ Commerçant | `airbus` | `airbus`
 Commerçant | `stellantis` | `stellantis`
 Commerçant | `nike` | `nike`
 
-## Comptes clients désactivés
+### Comptes clients désactivés
 
 Commerçant | Login | Mot de Passe
 -----------|-------|-------------
@@ -41,6 +61,6 @@ Test2 | `test2` | `test2`
 
 Scrum Master : [@Ahmed-Sarboudine](https://github.com/Ahmed-Sarboudine)
 
-[@cedric-mc](https://github.com/cedric-mc)
+Technical Leader : [@cedric-mc](https://github.com/cedric-mc)
 
-[@dmenoret](https://github.com/dmenoret)
+Developer : [@dmenoret](https://github.com/dmenoret)
