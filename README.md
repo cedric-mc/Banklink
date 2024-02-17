@@ -65,4 +65,4 @@ Scrum Master : [@Ahmed-Sarboudine](https://github.com/Ahmed-Sarboudine)
 
 Technical Leader : [@cedric-mc](https://github.com/cedric-mc)
 
-Developer : [@dmenoret](https://github.com/dmenoret)
+Developer : [@dmenoret](https://github.com/dmenoret) [@Ahmed-Sarboudine](https://github.com/Ahmed-Sarboudine) [@cedric-mc](https://github.com/cedric-mc)
