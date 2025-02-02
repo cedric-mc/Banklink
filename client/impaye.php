@@ -219,7 +219,7 @@ $dataMotifs = json_encode($dataMotifs);
         <!-- Graphique en camembert -->
         <!-- Scripts -->
         <script>
-            Highcharts.setOptions({
+            /* Highcharts.setOptions({
                 colors: Highcharts.map(Highcharts.getOptions().colors, function(color) {
                     return {
                         radialGradient: {
@@ -233,7 +233,7 @@ $dataMotifs = json_encode($dataMotifs);
                         ]
                     };
                 })
-            });
+            }); */
 
             var dataMotifs = <?php echo $dataMotifs; ?>;
             Highcharts.chart('myChart-motifs', {

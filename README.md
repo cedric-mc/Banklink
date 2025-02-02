@@ -24,6 +24,7 @@ Commerçant | Uniquement consulter ses données | client
 ### Installation du projet
 
 1 - Cloner le projet
+
 2 - Installer les dépendances avec la commande :
 
 ```bash
@@ -32,13 +33,14 @@ composer install
 
 3 - Importer le fichier SQL `banklink.sql` dans votre base de données :
 Attention : La base de données ne doit pas contenir des tables avec les noms suivants : `UTILISATEUR`, `CLIENT`, `REMISE`, `MOTIFS_IMPAYES`, `CLIENT_TEMP`
-4 - Dupliquer le fichier `conf.bkp.php` et le renommer `conf.php` se trouvant dans le répertoire `include` à la racine. Modifier les informations de connexion à la base de données dans ce fichier, `$utilisateur`, `$motdepasse`, `$serveur`, `$bdd`
+
+4 - Dupliquer le fichier `conf.bkp.php` et le renommer `conf.php` se trouvant dans le répertoire `includes` à la racine. Modifier les informations de connexion à la base de données dans ce fichier, `$utilisateur`, `$motdepasse`, `$serveur`, `$bdd`
 
 ## Utilisation
 
-### Guide utilisateur
+<!-- ### Guide utilisateur
 
-Guide d'utilisateur du site web : [Guide utilisateur](https://github.com/)
+Guide d'utilisateur du site web : [Guide utilisateur](https://github.com/) -->
 
 ### Comptes utilisables
 
